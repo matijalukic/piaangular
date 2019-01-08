@@ -1,0 +1,9 @@
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{{ fair.name }}</h5>
+      <p class="card-text text-muted">From <em>{{ fair.start | date }}</em> to <em>{{ fair.end | date }}</em></p>
+      <p class="card-text">Place: <strong>{{ fair.place }}</strong>
+        <br>{{ fair.about }}
+      </p>
+    </div>
+  </div>

@@ -1,0 +1,21 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div class="container-fluid mt-1">
+  <div class="row justify-content-between">
+    <div class="col-md-2">
+      <h2>JobFairs</h2>
+    </div>
+    <div class="col-md-4 text-right">
+        <div *ngIf="loggedUser != null">
+            Zdravo, <strong>{{ loggedUser.username }}</strong>,
+            <a (click)="logOut()" class="btn btn-outline-danger">Odjava</a>
+        </div>
+        <div *ngIf="loggedUser == null">
+            <a class="btn btn-primary" routerLink="/login" routerLinkActive="active">Login</a>
+        </div>
+
+    </div>
+  </div>
+  <router-outlet></router-outlet>
+</div>
+
+
