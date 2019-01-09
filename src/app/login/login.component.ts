@@ -18,7 +18,6 @@ export class LoginComponent implements OnInit {
   submited = false;
   error: string = null;
 
-
 	constructor(private userService: UserService,
 				private router: Router,
 				private formBuilder: FormBuilder) {
@@ -44,14 +43,8 @@ export class LoginComponent implements OnInit {
 		return this.form.controls;
 	}
 
-  private loggedIn(): boolean {
-    return this.userService.isLogged();
-  }
-
-
   login() {
-	  this.submited = true;
-	  if (this.form.invalid){
+	  if (this.form.invalid) {
 		return;
 	  }
       // if user is already logged in

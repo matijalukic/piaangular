@@ -8,13 +8,14 @@ import {NewFairComponent} from './profile/admin/new-fair/new-fair.component';
 import {NotFoundComponent} from './components/not-found/not-found.component';
 import {LoggedInGuard} from './guards/logged-in.guard';
 import {AdminGuard} from './guards/admin.guard';
+import {GuestGuard} from './guards/guest.guard';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
   { path: 'fairs',  component: FairsComponent },
   { path: 'home',   component: HomeComponent},
-  { path: 'login',  component: LoginComponent},
+  { path: 'login',  component: LoginComponent, canActivate: [GuestGuard]},
   // Admin routes
   { path: 'admin', component: AdminComponent, canActivate: [LoggedInGuard, AdminGuard]  },
   { path: 'admin/newfair', component: NewFairComponent, canActivate: [LoggedInGuard, AdminGuard] },
