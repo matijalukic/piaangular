@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FairsService} from '../fairs.service';
-import {Fair} from '../models/fair';
+import { FairsService} from '../../services/fairs.service';
+import {Fair} from '../../models/fair';
 
 @Component({
   selector: 'app-fairs',

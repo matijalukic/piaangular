@@ -1,0 +1,63 @@
+<div class="row justify-content-center">
+    <div class="col-md-12">
+        <h3>Insert new Fair</h3>
+    </div>
+
+    <div class="col-md-8">
+        <form [formGroup]="newFairForm" (submit)="onSubmit()">
+            <section class="form-row justify-content-center">
+                <label class="col-2 col-form-label">Name:</label>
+                <div class="col-5">
+                    <input type="text" [(ngModel)]="newFair.name" formControlName="name" placeholder="Fair Name" class="form-control" id="name"/>
+                </div>
+                <div class="alert alert-warning col-5" *ngIf="f.name.errors">
+                    This field is required
+                </div>
+            </section>
+            <section class="form-row justify-content-center">
+                <label class="col-2 col-form-label">Start time:</label>
+                <div class="col-5">
+                    <input type="datetime-local" [(ngModel)]="newFair.start" formControlName="start" placeholder="Starting time" class="form-control" id="start"/>
+                </div>
+                <div class="alert alert-warning col-5" *ngIf="f.start.errors">
+                    This field is required
+                </div>
+            </section>
+            <section class="form-row justify-content-center">
+                <label class="col-2 col-form-label">End time:</label>
+                <div class="col-5">
+                    <input type="datetime-local" [(ngModel)]="newFair.end" formControlName="end" placeholder="Ending time" class="form-control" id="end"/>
+                </div>
+                <div class="alert alert-warning col-5" *ngIf="f.end.errors">
+                    This field is required
+                </div>
+            </section>
+            <section class="form-row justify-content-center">
+                <label class="col-2 col-form-label">Place:</label>
+                <div class="col-5">
+                    <input type="text" formControlName="place" [(ngModel)]="newFair.place" placeholder="Place" class="form-control" id="place"/>
+                </div>
+                <div class="alert alert-warning col-5" *ngIf="f.place.errors">
+                    This field is required
+                </div>
+            </section>
+            <section class="form-row justify-content-center">
+                <label class="col-2 col-form-label">About:</label>
+                <div class="col-5">
+                    <textarea name="about" id="about" [(ngModel)]="newFair.about" formControlName="about" class="form-control" placeholder="More about this"></textarea>
+                </div>
+                <div class="alert alert-warning col-5" *ngIf="f.about.errors">
+                    This field is required
+                </div>
+            </section>
+            <section class="form-row justify-content-center">
+                <div class="col-12 mt-2 text-center">
+                    <button class="btn btn-primary" type="submit">Next</button>
+                </div>
+            </section>
+
+        </form>
+    </div>
+
+</div>
+

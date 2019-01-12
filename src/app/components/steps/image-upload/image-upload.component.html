@@ -1,0 +1,12 @@
+<section class="form-row justify-content-center">
+  <label class="col-2 col-form-label">Add image:</label>
+  <div class="col-5">
+    <input  type="file" (change)="addFile($event)" [formControl]="uploadControl" placeholder="Add image to the">
+  </div>
+  <div class="alert alert-warning text-center col-5" *ngIf="errorMsg">
+    {{ errorMsg }}
+  </div>
+  <div class="alert alert-success text-center col-5" *ngIf="successMsg">
+    {{ successMsg }}
+  </div>
+</section>

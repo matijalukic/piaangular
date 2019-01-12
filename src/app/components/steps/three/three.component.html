@@ -1,0 +1,30 @@
+<div class="row justify-content-center">
+
+    <div class="col-md-12">
+        <h2>Import packages</h2>
+    </div>
+
+    <div class="col-md-8">
+
+            <section class="form-row justify-content-center">
+                <label class="col-2 col-form-label">Upload json with packages:</label>
+                <div class="col-5">
+                    <input type="file" accept="application/json" (change)="onChange($event)" [formControl]="uploadPackagesControl" placeholder="Upload json" class="form-control"/>
+                </div>
+            </section>
+
+            <section class="form-row justify-content-center">
+                <div class="col-12 my-2 text-center">
+                    <button class="btn btn-primary" (click)="importPackages()">Next</button>
+                </div>
+                <div *ngIf="successMessage" class="col-12 alert alert-success text-center">
+                    {{ successMessage }}
+                </div>
+
+            </section>
+
+
+
+    </div>
+
+</div>

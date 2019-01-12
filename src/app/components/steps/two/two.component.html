@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+
+	<div class="col-md-12">
+		<h2>Set times for the {{ editFair.name }} fair</h2>
+	</div>
+
+	<div class="col-md-8">
+		<form [formGroup]="editFairForm" (submit)="onSubmit()">
+			<section class="form-row justify-content-center">
+				<label class="col-2 col-form-label">Begin accepting CV:</label>
+				<div class="col-5">
+					<input type="datetime-local" [(ngModel)]="editFair.startCV" formControlName="startCV" placeholder="Starting time" class="form-control"/>
+				</div>
+				<div class="alert alert-warning col-5" *ngIf="f.startCV.errors">
+					This field is required
+				</div>
+			</section>
+			<section class="form-row justify-content-center">
+				<label class="col-2 col-form-label">End accepting CV:</label>
+				<div class="col-5">
+					<input type="datetime-local" [(ngModel)]="editFair.endCV" formControlName="endCV" placeholder="Ending time" class="form-control"/>
+				</div>
+				<div class="alert alert-warning col-5" *ngIf="f.endCV.errors">
+					This field is required
+				</div>
+			</section>
+
+			<section class="form-row justify-content-center">
+				<label class="col-2 col-form-label">Begin accepting participation:</label>
+				<div class="col-5">
+					<input type="datetime-local" [(ngModel)]="editFair.startParticipate" formControlName="startParticipate" placeholder="Starting time" class="form-control"/>
+				</div>
+				<div class="alert alert-warning col-5" *ngIf="f.startParticipate.errors">
+					This field is required
+				</div>
+			</section>
+			<section class="form-row justify-content-center">
+				<label class="col-2 col-form-label">End accepting participation:</label>
+				<div class="col-5">
+					<input type="datetime-local" [(ngModel)]="editFair.endParticipate" formControlName="endParticipate" placeholder="Ending time" class="form-control"/>
+				</div>
+				<div class="alert alert-warning col-5" *ngIf="f.endParticipate.errors">
+					This field is required
+				</div>
+			</section>
+
+			<app-image-upload (fileSent)="receiveFile($event)"></app-image-upload>
+
+			<section class="form-row justify-content-center">
+				<div class="col-12">
+				Files:
+					<ul>
+						<li *ngFor="let imageName of fileNames">
+							{{ imageName }}
+						</li>
+					</ul>
+				</div>
+			</section>
+
+			<section class="form-row justify-content-center">
+				<div class="col-12 mt-2 text-center">
+
+
+					<button class="btn btn-primary" type="submit">Next</button>
+				</div>
+			</section>
+
+		</form>
+
+
+	</div>
+ 
+</div>

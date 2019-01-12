@@ -11,11 +11,26 @@ import {log} from 'util';
 export class AppComponent {
     @Input() loggedUser: User;
     title = 'jobfair';
+    isAdmin: boolean;
 
     constructor(private userService: UserService) {
         this.userService.getUser.subscribe((loggedUser: User) => {
             this.loggedUser = loggedUser;
+
+            // if the user is logged check if is admin
+            if(this.loggedUser) {
+                userService.isAdmin().then(
+                    (admin) => {
+                        this.isAdmin = true;
+                    },
+                    (reject) => {
+                        this.isAdmin = false;
+                    }
+                );
+            }
         });
+
+
     }
 
     logOut() {

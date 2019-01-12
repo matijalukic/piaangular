@@ -1,3 +1,13 @@
-<p>
-  new-fair works!
-</p>
+
+<ul class="nav nav-pills nav-fill">
+  <li class="nav-item" *ngFor="let component of listComponents; let i = index">
+    <button class="btn btn-block btn-primary" [class.active]="showingNo==i" (click)="showComponent(i)">Step {{ i + 1}}</button>
+  </li>
+</ul>
+
+<div class="steps mt-3">
+    <app-one *ngIf="showingNo==0" [newFair]="newFair" (submited)="nextStep(newFair)"></app-one>
+    <app-two *ngIf="showingNo==1" [editFair]="newFair" (submited)="nextStep(newFair)" (fileAdded)="saveFiles($event)"></app-two>
+    <app-three *ngIf="showingNo==2" (imported)="importPackages($event)"></app-three>
+    <app-four *ngIf="showingNo==3"></app-four>
+</div>

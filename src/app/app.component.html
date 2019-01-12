@@ -6,8 +6,9 @@
     </div>
     <div class="col-md-4 text-right">
         <div *ngIf="loggedUser != null">
+            <a routerLink="/admin/newfair" routerLinkActive="/admin/newfair" *ngIf="isAdmin">New Fair</a>
             Zdravo, <strong>{{ loggedUser.username }}</strong>,
-            <a (click)="logOut()" class="btn btn-outline-danger">Odjava</a>
+            <a (click)="logOut()" class="btn btn-outline-danger">Log out</a>
         </div>
         <div *ngIf="loggedUser == null">
             <a class="btn btn-primary" routerLink="/login" routerLinkActive="active">Login</a>

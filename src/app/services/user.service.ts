@@ -11,13 +11,14 @@ import { Router } from '@angular/router';
 export class UserService {
   static url = 'http://localhost:3000/';
   private loggedUserSubject: BehaviorSubject<User>;
-	private errorMessage: string;
+  private errorMessage: string;
 
 
   constructor(private httpClient: HttpClient,
 				private router: Router) {
 	  this.loggedUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
-   }
+
+  }
 
   // login request
   	login(username: string, password: string): Observable<any> {
@@ -51,30 +52,26 @@ export class UserService {
 		}
 		return true;
 	}
-	private admin;
-	// TODO 
-	async isAdmin(){
+
+	// upload files
+	uploadFile(file: File): Observable<any>{
+        let token = localStorage.getItem('idToken');
+
+        // create form data
+        const formData = new FormData();
+        formData.append('file', file, file.name);
+
+        return this.httpClient.post(UserService.url + 'admin/uploadimage', formData,
+            {headers:  { 'Authorization' : 'Bearer ' + token} });
+    }
+
+
+	async isAdmin(): Promise<any>{
 		let token = localStorage.getItem('idToken');
-		let isAdmin;
 		const httpParams = new HttpParams().set('token', token);
 
-		await this.httpClient.get( UserService.url + 'isadmin', { params: httpParams })
-		.toPromise()
-		.then(
-			(success) => {
-				
-				console.log('isAdmin(): ' + JSON.stringify(success));
-				this.admin = success;
-				isAdmin = true;
-			},
-			(errorResponse) => {
-				console.log('isAdmin(): ' + JSON.stringify(errorResponse));
-				this.errorMessage = errorResponse.error.errorMessage;
-				isAdmin = false;
-			}
-		);
-
-		return isAdmin;
+		return this.httpClient.get( UserService.url + 'isadmin', { params: httpParams })
+		.toPromise();
 	}
 
 	logOut(){
