@@ -1,13 +1,31 @@
 
-<ul class="nav nav-pills nav-fill">
-  <li class="nav-item" *ngFor="let component of listComponents; let i = index">
-    <button class="btn btn-block btn-primary" [class.active]="showingNo==i" (click)="showComponent(i)">Step {{ i + 1}}</button>
+<ul class="nav nav-tabs nav-fill" #notificationsList>
+  <li class="nav-item" *ngFor="let component of listComponents; let i = index" >
+    <a class="nav-link" [class.active]="showingNo==i" (click)="showComponent(i)">Step {{ i + 1}}</a>
   </li>
 </ul>
+<div>
+    <div  class="alert alert-success" *ngIf="notifications.length > 0">
+        <ul>
+            <li *ngFor="let notification of notifications">
+                {{ notification }}
+            </li>
+        </ul>
+    </div>
+
+    <div class="alert alert-warning" *ngIf="errors.length > 0">
+        <ul>
+            <li *ngFor="let err of errors">
+                {{ err }}
+            </li>
+        </ul>
+    </div>
+</div>
+
 
 <div class="steps mt-3">
-    <app-one *ngIf="showingNo==0" [newFair]="newFair" (submited)="nextStep(newFair)"></app-one>
+    <app-one *ngIf="showingNo==0" [newFair]="newFair" (submited)="nextStep($event)"></app-one>
     <app-two *ngIf="showingNo==1" [editFair]="newFair" (submited)="nextStep(newFair)" (fileAdded)="saveFiles($event)"></app-two>
-    <app-three *ngIf="showingNo==2" (imported)="importPackages($event)"></app-three>
-    <app-four *ngIf="showingNo==3"></app-four>
+    <app-three *ngIf="showingNo==2" (imported)="importPackages($event)" (done)="nextStep(newFair)"></app-three>
+    <app-four *ngIf="showingNo==3" [newFair]="newFair" (submited)="sendAll($event)"></app-four>
 </div>

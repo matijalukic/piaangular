@@ -15,14 +15,23 @@ export class ThreeComponent implements OnInit,StepComponent {
 	@Output()
 	imported = new EventEmitter<string>();
 
+	@Output()
+        done = new EventEmitter();
+
 	file: any;
 	fileContent: string;
 	successMessage: string;
+	packages: any; // JSON parsend content of packages
 
 	constructor() { }
 
 	ngOnInit() {
-		
+		let savedPackages = localStorage.getItem('importingPackages');
+        if(savedPackages){
+            this.fileContent = savedPackages;
+            this.packages = JSON.parse(savedPackages);
+        }
+
 		this.uploadPackagesControl = new FormControl();
 		this.uploadPackagesControl.setValidators([Validators.required]);
 	}
@@ -36,7 +45,7 @@ export class ThreeComponent implements OnInit,StepComponent {
 			this.fileContent = fileReader.result as string;
 			this.successMessage = 'The file has been imported!';
 
-
+            this.packages = JSON.parse(this.fileContent);
 			// send event to the new-fair component
 			this.imported.emit(this.fileContent);
 
@@ -47,15 +56,8 @@ export class ThreeComponent implements OnInit,StepComponent {
 	}
 
 
-	importPackages(){
-		if(this.uploadPackagesControl.invalid){
-			return;
-		}
-
-
-		// this.imported.emit(this.fileContent);
-
-
+	nextStep(){
+        this.done.emit();
 	}
 
 }

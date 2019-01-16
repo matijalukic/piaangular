@@ -22,6 +22,8 @@ export class OneComponent implements OnInit, StepComponent {
 	}
 
 	ngOnInit() {
+	    if(this.newFair == null)
+	        this.newFair = {} as Fair;
 		this.newFairForm = this.formBuilder.group({
 			name:   ['', Validators.required],
 			place:  ['', [Validators.required]],

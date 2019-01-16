@@ -1,3 +1,65 @@
-<p>
-  four works!
-</p>
+<div class="row justify-content-center">
+
+    <div class="col-12">
+        <h2>Review you input</h2>
+    </div>
+
+    <div class="col-10">
+        <h3 class="my-3">New Fair</h3>
+        <hr>
+        <table class="table table-striped" *ngIf="newFair!=null">
+            <tbody>
+                <tr>
+                    <th>Name:</th>
+                    <td>{{ newFair.name }}</td>
+                </tr>
+                <tr>
+                    <th>Starts:</th>
+                    <td>{{ newFair.start | date : "full" }}</td>
+                </tr>
+                <tr>
+                    <th>Ends:</th>
+                    <td>{{ newFair.end | date : "full"}}</td>
+                </tr>
+                <tr>
+                    <th>Place:</th>
+                    <td>{{ newFair.place }}</td>
+                </tr>
+                <tr>
+                    <th>About:</th>
+                    <td>{{ newFair.about }}</td>
+                </tr>
+                <tr>
+                    <th>Start accepting CV:</th>
+                    <td>{{ (newFair.startCV | date : "full") || "--no date set--" }}</td>
+                </tr>
+                <tr>
+                    <th>End accepting CV:</th>
+                    <td>{{ (newFair.endCV | date : "full" ) || "--no date set--" }}</td>
+                </tr>
+                <tr>
+                    <th>Start accepting participate:</th>
+                    <td>{{ (newFair.startParticipate | date: "full"  ) || "--no date set--"}}</td>
+                </tr>
+                <tr>
+                    <th>End accepting participate:</th>
+                    <td>{{ (newFair.endParticipate | date: "full") || "--no date set--" }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3 class="my-3">Images</h3>
+        <hr>
+            <ul class="nav nav-pills">
+                <li *ngFor="let image of images; let i = index" class="nav-item">
+                    <a class="nav-link pick-image" [class.active]="i==showingImageIndex" (click)="showImage(image)">{{ image }}</a>
+                </li>
+            </ul>
+        <img *ngIf="images" [src]="showingImage" alt="Showing image" class="img-thumbnail">
+
+
+        <button (click)="submitAll()" class="btn btn-block btn-primary my-4">INSERT THIS FAIR</button>
+    </div>
+
+
+</div>

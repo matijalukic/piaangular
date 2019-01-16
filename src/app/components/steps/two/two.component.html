@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
 
 	<div class="col-md-12">
-		<h2>Set times for the {{ editFair.name }} fair</h2>
+		<h2>Set times for the {{ editFair?.name }} fair</h2>
 	</div>
 
 	<div class="col-md-8">
@@ -47,20 +47,27 @@
 			<app-image-upload (fileSent)="receiveFile($event)"></app-image-upload>
 
 			<section class="form-row justify-content-center">
-				<div class="col-12">
-				Files:
-					<ul>
-						<li *ngFor="let imageName of fileNames">
-							{{ imageName }}
-						</li>
-					</ul>
-				</div>
+				<div class="col-12 text-center">
+				    <h3>Files:</h3>
+                    <div *ngIf="fileNames && fileNames.length > 0">
+                        <ul class="nav">
+                            <li *ngFor="let imageName of fileNames; let i = index" class="nav-item m-2">
+                                <button class="btn btn-sm btn-danger mr-1" (click)="removeFile(i)">Remove</button>
+                                <a class="badge badge-light" style="cursor: pointer"
+                                   (click)="displayImage(imageName)"
+                                    [class.bg-info]="i==displayingImageIndex">{{ imageName }}</a>
+                            </li>
+                        </ul>
+                    </div>
+					<div *ngIf="fileNames && fileNames.length == 0" class="alert alert-warning">
+                        There are no images, please upload!
+                    </div>
+                    <img *ngIf="fileNames" [src]="displayingImage" alt="Product image" class="img-thumbnail">
+                </div>
 			</section>
 
 			<section class="form-row justify-content-center">
 				<div class="col-12 mt-2 text-center">
-
-
 					<button class="btn btn-primary" type="submit">Next</button>
 				</div>
 			</section>

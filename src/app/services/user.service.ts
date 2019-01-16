@@ -9,16 +9,16 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UserService {
-  static url = 'http://localhost:3000/';
-  private loggedUserSubject: BehaviorSubject<User>;
-  private errorMessage: string;
+    static url = 'http://localhost:3000/';
+    private loggedUserSubject: BehaviorSubject<User>;
+    private errorMessage: string;
 
 
-  constructor(private httpClient: HttpClient,
-				private router: Router) {
-	  this.loggedUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
+    constructor(private httpClient: HttpClient,
+                private router: Router) {
+        this.loggedUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
 
-  }
+    }
 
   // login request
   	login(username: string, password: string): Observable<any> {
@@ -65,6 +65,22 @@ export class UserService {
             {headers:  { 'Authorization' : 'Bearer ' + token} });
     }
 
+    // get file from server
+    getImage(name: string): Observable<Blob>{
+        let token = localStorage.getItem('idToken');
+        return this.httpClient.get(UserService.url + 'admin/image',
+            {
+                headers: {
+                    'Authorization' : 'Bearer ' + token
+                },
+                params: {
+                    name: name
+                },
+                responseType: 'blob'
+            });
+    }
+
+
 
 	async isAdmin(): Promise<any>{
 		let token = localStorage.getItem('idToken');
@@ -73,6 +89,10 @@ export class UserService {
 		return this.httpClient.get( UserService.url + 'isadmin', { params: httpParams })
 		.toPromise();
 	}
+
+	parseImportingPackages(): any{
+        return JSON.parse(localStorage.getItem('importingPackages'));
+    }
 
 	logOut(){
 		localStorage.removeItem('idToken');

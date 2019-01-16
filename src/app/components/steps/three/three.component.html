@@ -11,11 +11,14 @@
                 <div class="col-5">
                     <input type="file" accept="application/json" (change)="onChange($event)" [formControl]="uploadPackagesControl" placeholder="Upload json" class="form-control"/>
                 </div>
+                <div class="col-5 alert alert-success text-center" *ngIf="fileContent">
+                    The file has been imported!
+                </div>
             </section>
 
             <section class="form-row justify-content-center">
                 <div class="col-12 my-2 text-center">
-                    <button class="btn btn-primary" (click)="importPackages()">Next</button>
+                    <button class="btn btn-primary" (click)="nextStep()">Next</button>
                 </div>
                 <div *ngIf="successMessage" class="col-12 alert alert-success text-center">
                     {{ successMessage }}
@@ -23,8 +26,54 @@
 
             </section>
 
+    </div>
 
-
+    <div class="col-md-10">
+        <h3 class="my-3">Importing packages</h3>
+        <hr>
+        <h4>Package</h4>
+        <table class="table table-striped" *ngIf="packages">
+            <thead>
+            <tr>
+                <th>Title</th>
+                <th>Video Promotion</th>
+                <th>No Lessons</th>
+                <th>No Workshops</th>
+                <th>No Presentation</th>
+                <th>Price</th>
+                <th>Max Companies</th>
+            </tr>
+            </thead>
+            <tbody>
+            <ng-container  *ngFor="let package of packages.Packages">
+                <tr>
+                    <td>{{ package.Title }}</td>
+                    <td>{{ package.VideoPromotion }}</td>
+                    <td>{{ package.NoLessons }}</td>
+                    <td>{{ package.NoWorkchops }}</td>
+                    <td>{{ package.NoPresentation }}</td>
+                    <td>{{ package.Price }}</td>
+                    <td>{{ package.MaxCompanies }}</td>
+                </tr>
+                <tr>
+                    <td colspan="7">
+                        <ul>
+                            <li *ngFor="let content of package.Content">
+                                {{ content}}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+        <h4>Additional</h4>
+        <ul *ngIf="packages">
+            <li *ngFor="let addit of packages.Additional">
+                <strong>{{ addit.Title}}</strong> -
+                <em>{{ addit.Price }}</em>
+            </li>
+        </ul>
     </div>
 
 </div>

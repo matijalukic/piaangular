@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {OneComponent} from '../../../components/steps/one/one.component';
 import {TwoComponent} from '../../../components/steps/two/two.component';
 import {ThreeComponent} from '../../../components/steps/three/three.component';
@@ -6,6 +6,7 @@ import {FourComponent} from '../../../components/steps/four/four.component';
 import {StepComponent} from '../../../components/steps/step.component';
 import {Fair} from '../../../models/fair';
 import { FairComponent } from 'src/app/fair/fair.component';
+import {FairsService} from '../../../services/fairs.service';
 
 @Component({
   selector: 'app-new-fair',
@@ -33,12 +34,23 @@ export class NewFairComponent implements OnInit {
 	listComponents: StepComponent[];
 	showingComponent: StepComponent;
 
+	// images that was uploaded
+    images: Array<string>;
+
 	@Input()
 	showingNo: number;
 
 	importingPackages: string;
 
-	constructor() {
+	notifications = [];
+	errors = [];
+
+	@ViewChild("notificationsList")
+        notificationsElement: ElementRef;
+
+	constructor(
+	    private fairService: FairsService
+    ) {
 		this.listComponents = [
 		this.firstComponent,
 		this.secondComponent,
@@ -50,7 +62,9 @@ export class NewFairComponent implements OnInit {
 		try{
 			// init the fair model
 			this.newFair = JSON.parse(localStorage.getItem('newfair')) as Fair;
-	
+
+			// insert import packages
+            this.importingPackages = localStorage.getItem('importingPackages');
 	
 		}
 		catch(err){
@@ -103,8 +117,72 @@ export class NewFairComponent implements OnInit {
 	 * Save files to the local storaga
      */
 	saveFiles(imageNames : Array<string>){
-		localStorage.setItem('fairimages', JSON.stringify(imageNames));
+        this.images = imageNames;
+        localStorage.setItem('fairimages', JSON.stringify(imageNames));
 	}
+
+	private clearNotifications(){
+	    this.errors = [];
+	    this.notifications = [];
+    }
+
+	async sendAll(event){
+	    // json array images here
+        this.newFair.images = localStorage.getItem('fairimages');
+        let insertedFair;
+
+        // inserts all fair
+        try {
+            let insertingFairResponse = await this.fairService.insertNewFair(this.newFair).toPromise();
+            console.log(insertingFairResponse);
+
+            this.clearNotifications();
+            insertedFair = insertingFairResponse.newInsertedFair as Fair;
+            // push success message
+            this.notifications.push(insertingFairResponse.successMessage);
+            this.notificationsElement.nativeElement.scrollIntoView({behavior: 'smooth'});
+
+            let packagesObject = JSON.parse(this.importingPackages);
+
+            this.fairService.importPackages(insertedFair, packagesObject)
+                .subscribe(
+                    (res) => {
+                        // delete all
+                        this.importingPackages = "";
+                        this.newFair = null;
+
+                        // remove from local storage
+                        localStorage.removeItem('newfair');
+                        localStorage.removeItem('importingPackages');
+                        localStorage.removeItem('fairimages');
+
+                        // notify
+                        this.notifications.push(res.successMessage);
+                    },
+                    (errResponse) => {
+
+                        this.errors.push(errResponse.error.errorMessage);
+                    }
+                );
+
+        }
+        catch (e) {
+            this.clearNotifications();
+
+            if(e.errors){
+                e.errors.forEach((errObj) => {
+                    this.errors.push(errObj.msg);
+                })
+            }
+            this.errors.push(e.error.errorMessage);
+            this.notificationsElement.nativeElement.scrollIntoView();
+            this.notificationsElement.nativeElement.scrollIntoView({behavior: 'smooth'});
+        }
+
+
+
+
+    }
 
 
 }
