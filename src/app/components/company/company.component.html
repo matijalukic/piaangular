@@ -1,0 +1,54 @@
+
+<div class="row justify-content-center">
+
+    <div class="col-md-9">
+        <div class="alert alert-warning" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+
+        <h3>Company details: {{ showingCompany?.name }}</h3>
+
+        <table class="table table-borderless" *ngIf="showingCompany">
+            <tbody>
+                <tr>
+                    <th>Name:</th>
+                    <td>{{ showingCompany.name }}</td>
+                </tr>
+                <tr>
+                    <th>Address:</th>
+                    <td>{{ showingCompany.address }}</td>
+                </tr>
+                <tr>
+                    <th>City:</th>
+                    <td>{{ showingCompany.city }}</td>
+                </tr>
+                <tr>
+                    <th>Director:</th>
+                    <td>{{ showingCompany.director }}</td>
+                </tr>
+                <tr>
+                    <th>PIB:</th>
+                    <td>{{ showingCompany.pib }}</td>
+                </tr>
+                <tr>
+                    <th>Employees:</th>
+                    <td>{{ showingCompany.employees }}</td>
+                </tr>
+                <tr>
+                    <th>Domain:</th>
+                    <td>{{ showingCompany.domain }}</td>
+                </tr>
+                <tr>
+                    <th>Agency:</th>
+                    <td>{{ showingCompany.agency }} - {{ showingCompany.speciality}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+    </div>
+
+
+</div>
+

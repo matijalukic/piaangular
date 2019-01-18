@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { FairsComponent } from './components/fairs/fairs.component';
+import { FairsComponent as AdminFairsComponent } from './components/admin/fairs/fairs.component';
 import { FairComponent } from './fair/fair.component';
 import { HomeComponent } from './home/home.component';
 import { AdminComponent } from './profile/admin/admin/admin.component';
@@ -17,6 +18,7 @@ import { TwoComponent } from './components/steps/two/two.component';
 import { ThreeComponent } from './components/steps/three/three.component';
 import { FourComponent } from './components/steps/four/four.component';
 import { ImageUploadComponent } from './components/steps/image-upload/image-upload.component';
+import { CompanyComponent } from './components/company/company.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ImageUploadComponent } from './components/steps/image-upload/image-uplo
     TwoComponent,
     ThreeComponent,
     FourComponent,
-    ImageUploadComponent
+    ImageUploadComponent,
+      AdminFairsComponent,
+      CompanyComponent
   ],
   imports: [
     BrowserModule,

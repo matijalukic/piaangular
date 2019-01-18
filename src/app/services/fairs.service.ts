@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Fair} from '../models/fair';
 import {UserService} from './user.service';
+import {Permit} from '../models/permit';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -11,6 +12,10 @@ const httpOptions = {
   })
 };
 
+const httpHeaders = new HttpHeaders({
+    'Content-Type':  'application/json',
+    'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+});
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +29,7 @@ export class FairsService {
     }
 
     fairs(): Observable<any> {
-    return this.httpClient.get('http://localhost:3000/admin/fairs', httpOptions);
+        return this.httpClient.get('http://localhost:3000/admin/fairs', httpOptions);
     }
 
     /**
@@ -67,6 +72,39 @@ export class FairsService {
 
     }
 
+
+    /**
+     * Getting the entries of the fair
+     */
+    entriesOfFair(selectedFair: Fair): Observable<Array<Permit>> {
+        return this.httpClient.get('http://localhost:3000/admin/fair/permits', {
+            headers: httpHeaders,
+            params: {
+                'fair_id': selectedFair.id
+            }
+        });
+    }
+
+    /**
+     * Allow the permit(participation of the company
+     */
+    allowParticipate(permit: Permit): Observable<any>{
+        return this.httpClient.get(UserService.url + 'admin/allowpermit', {
+            headers: httpHeaders,
+            params: {
+                id: permit.id
+            }
+        })
+    }
+
+    forbidParticipate(permit: Permit): Observable<any>{
+        return this.httpClient.get(UserService.url + 'admin/forbidpermit', {
+            headers: httpHeaders,
+            params: {
+                id: permit.id
+            }
+        })
+    }
 
 
 }

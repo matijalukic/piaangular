@@ -1,0 +1,67 @@
+<div class="row">
+
+    <div class="col-md-6 px-5">
+        <h2>Fairs:</h2>
+
+        <table class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Place</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let fair of fairsList" [class.bg-light]="fair==selectedFair">
+                    <td>{{ fair.name }}</td>
+                    <td>{{ fair.start | date }}</td>
+                    <td>{{ fair.end | date }}</td>
+                    <td>{{ fair.place }}</td>
+                    <td>
+                        <button class="btn btn-outline-primary" (click)="selectFair(fair)">View Entries</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <div class="col-md-6 px-5"  *ngIf="selectedFair">
+        <div class="alert alert-warning" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+        <h3>{{ selectedFair.name }} - entries:</h3>
+        <table class="table table-hover table-striped">
+            <thead>
+            <tr>
+                <th>Company</th>
+                <th>Package</th>
+                <th>Additionals</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let entry of entriesOfFair">
+                <td>{{ entry.company?.name }} - {{ entry.company?.address}}</td>
+                <td>{{ entry.package?.title }} - {{ entry.package?.price }}</td>
+                <td>
+                    <ul *ngIf="entry.additionals">
+                        <li *ngFor="let add of entry.additionals">
+                            {{ add.title }} - {{ add.price }}
+                        </li>
+                    </ul>
+
+                </td>
+                <td>
+                    <button class="btn btn-outline-primary" *ngIf="!entry.allowed" (click)="allow(entry)">Allow</button>
+                    <button class="btn btn-outline-danger" *ngIf="entry.allowed"  (click)="forbid(entry)">Forbid</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+
+</div>
