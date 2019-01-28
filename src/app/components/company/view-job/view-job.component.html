@@ -1,0 +1,18 @@
+<div class="row">
+    <div *ngIf="errorMessage" class="alert alert-warning col-md-12">{{ errorMessage }}</div>
+
+    <div class="col-md-6">
+        <h3>Job</h3>
+        <app-job *ngIf="job" [job]="job"></app-job>
+    </div>
+    <div class="col-md-6">
+        <h3>Applications for job</h3>
+        <div class="alert alert-warning" *ngIf="applicationsOfJob && applicationsOfJob.length==0">There is no applications for this job!</div>
+
+        <div class="border-primary" *ngFor="let application of applicationsOfJob">
+            <app-application [application]="application"></app-application>
+            <app-accept-application [application]="application" (errors)="handleError($event)"></app-accept-application>
+        </div>
+    </div>
+
+</div>

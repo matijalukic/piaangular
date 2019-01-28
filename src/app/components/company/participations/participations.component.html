@@ -1,0 +1,50 @@
+
+<div class="row justify-content-center">
+
+    <div class="col-md-12">
+        <h2>Fairs</h2>
+        <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+        <div class="alert alert-warning" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="fair p-2 bg-light" *ngFor="let fair of fairs">
+            <h3>{{ fair.name }} - {{ fair.place }}</h3>
+            <p class="text-muted">{{ fair.start | date }} - {{ fair.end | date }}</p>
+            <hr>
+            <form  [formGroup]="formGroup" *ngIf="!participateIn(loggedCompany, fair) &&  fair.packages && fair.packages.length > 0">
+                <div class="row justify-content-around">
+                    <div class="col-4">
+                        <label for="package">Package:</label>
+                        <select formControlName="packageID" id="package" name="package" class="form-control">
+                            <option *ngFor="let pack of fair.packages" value="{{ pack.id }}"> {{ pack.title }} - {{ pack.price }}</option>
+                        </select>
+                    </div>
+                    <div class="col-4">
+                        <label>Additionals:</label>
+                        <select formControlName="additionals" name="additionals[]" id="additionals" multiple class="form-control">
+                            <option *ngFor="let additional of fair.additionals" value="{{ additional.id }}">{{ additional.title }} - {{ additional.price }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-6 text-center">
+                        <button (click)="newParticipation(fair)"  class="btn btn-outline-primary">Participate</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="alert alert-warning" *ngIf="0==fair.packages">
+                There are no packages for this fair!
+            </div>
+
+            <ng-container *ngIf="participateIn(loggedCompany, fair)">
+                <app-permit *ngFor="let permit of fair.permits" [permit]="permit" (messenger)="notify($event)"></app-permit>
+            </ng-container>
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+

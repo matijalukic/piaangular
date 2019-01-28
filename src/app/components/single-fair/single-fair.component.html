@@ -1,0 +1,24 @@
+<div class="my-3">
+
+    <h2>{{ showingFair?.name }}</h2>
+    <h4>{{ showingFair?.place }}</h4>
+    <div class="text-muted">
+        <span class="badge badge-success" *ngIf="stillGoing">In Progress</span>
+        <span class="badge badge-danger" *ngIf="!stillGoing">Finished</span> <br>
+        <time>{{ showingFair?.start | date : 'medium' }}</time> - <time>{{ showingFair?.end | date: 'medium' }}</time>
+    </div>
+    <hr>
+    <p class="lead">{{ showingFair?.about }}</p>
+    <h4 class="my-2">Companies participating:</h4>
+    <hr>
+    <div class="card-columns" *ngIf="showingFair?.companies">
+        <ng-container *ngFor="let company of showingFair.companies">
+            <app-card-company [showingCompany]="company" [packageName]="packageName(company.permits.package_id)"></app-card-company>
+        </ng-container>
+    </div>
+    <div class="card-deck">
+        <div *ngFor="let img of images" class="card">
+            <img [src]="serverUrlImages + img" class="card-img-top" alt="sads">
+        </div>
+    </div>
+</div>

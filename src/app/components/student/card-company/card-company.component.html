@@ -1,0 +1,51 @@
+
+
+    <div class="card">
+        <div class="card-header">
+            <a [routerLink]="['/company', showingCompany.id]"><h4>{{ showingCompany?.name }}</h4></a>
+        </div>
+        <div class="card-body">
+            <table class="table table-borderless" *ngIf="showingCompany">
+                <tbody>
+                <tr>
+                    <th>Address:</th>
+                    <td>{{ showingCompany.address }}</td>
+                </tr>
+                <tr>
+                    <th>City:</th>
+                    <td>{{ showingCompany.city }}</td>
+                </tr>
+                <tr>
+                    <th>Director:</th>
+                    <td>{{ showingCompany.director }}</td>
+                </tr>
+                <tr>
+                    <th>PIB:</th>
+                    <td>{{ showingCompany.pib }}</td>
+                </tr>
+                <tr>
+                    <th>Employees:</th>
+                    <td>{{ showingCompany.employees }}</td>
+                </tr>
+                <tr>
+                    <th>Domain:</th>
+                    <td>{{ showingCompany.domain }}</td>
+                </tr>
+                <tr>
+                    <th>Agency:</th>
+                    <td>{{ showingCompany.agency }} - {{ showingCompany.speciality}}</td>
+                </tr>
+                <tr *ngIf="packageName">
+                    <th>Participate as:</th>
+                    <td>{{ packageName }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+
+    </div>
+
+
+

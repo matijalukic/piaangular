@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>Find jobs:</h2>
+        <div class="alert alert-warning" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+        <form [formGroup]="searchFormGroup">
+            <div class="form-row">
+                <div class="col-md-4">
+                    <label class="my-1" for="inlineFormInputName2">Name</label>
+                    <input type="text"  formControlName="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Position name">
+                </div>
+
+                <div class="col-md-4">
+                    <label>Type:</label><br>
+                    <div class="form-check form-check-inline mb-2 mr-sm-2">
+                        <input formControlName="practice" name="practice" value="practice" class="form-check-input" type="checkbox" id="inlineFormCheck">
+                        <label class="form-check-label" for="inlineFormCheck">
+                            Practice
+                        </label>
+                    </div>
+                    <div class="form-check form-check-inline mb-2 mr-sm-2">
+                        <input formControlName="job" name="type" value="job" class="form-check-input" type="checkbox" id="inlineFormCheckJob">
+                        <label class="form-check-label" for="inlineFormCheckJob">
+                            Job
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4 d-flex align-bottom">
+                    <button type="submit" class="btn btn-block mt-auto btn-primary mb-2" (click)="search()">Submit</button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="alert alert-warning my-2" *ngIf="contentMessage">{{ contentMessage }}</div>
+
+        <h3 class="my-3">Jobs:</h3>
+        <div class="card-columns">
+            <app-job-offer *ngFor="let job of showingJobs" [job]="job"></app-job-offer>
+        </div>
+    </div>
+
+
+</div>

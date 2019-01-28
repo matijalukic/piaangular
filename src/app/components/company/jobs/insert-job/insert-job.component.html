@@ -1,0 +1,78 @@
+
+<div class="row justify-content-center">
+
+    <div class="col-md-9">
+        <h2>Insert Job</h2>
+        <div *ngIf="errorMessage" class="alert alert-danger my-2">
+            {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="alert alert-success my-2">
+            {{ successMessage }}
+        </div>
+
+            <form [formGroup]="insertJobForm">
+                    <div class="form-row my-1">
+                        <label for="name" class="col-form-label col-md-3">Name</label>
+                        <div class="col-md-9">
+                            <input type="text" [(ngModel)]="insertingJob.name" formControlName="name" placeholder="Title of the job" class="form-control" id="name"/>
+                        </div>
+                    </div>
+                    <div class="form-row my-1">
+                        <label for="description" class="col-form-label col-md-3">Description</label>
+                        <div class="col-md-9">
+                            <textarea [(ngModel)]="insertingJob.text" class="form-control" placeholder="Description" id="description" name="description" formControlName="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row my-1">
+                        <label for="start" class="col-form-label col-md-3">Start accepting Applications:</label>
+                        <div class="col-md-9">
+                            <input [ngModel]="startingDate" (ngModelChange)="setNewStart($event)" type="datetime-local" formControlName="start" placeholder="Starting time" class="form-control" id="start"/>
+                        </div>
+                    </div>
+                    <div class="form-row my-1">
+                        <label for="end" class="col-form-label col-md-3">End accepting Applications:</label>
+                        <div class="col-md-9">
+                            <input [ngModel]="endingDate" (ngModelChange)="setNewEnd($event)" type="datetime-local" formControlName="end" placeholder="Ending time" class="form-control" id="end"/>
+                        </div>
+                    </div>
+                    <div class="form-row my-1">
+                        <label class="col-form-label col-md-3">Type:</label>
+                        <div class="col-md-9">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input [(ngModel)]="insertingJob.type" formControlName="type" value="practice" type="radio" id="practice" name="type" class="custom-control-input">
+                                <label class="custom-control-label" for="practice">Practice</label>
+                            </div>
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input [(ngModel)]="insertingJob.type" formControlName="type" value="job" type="radio" id="job" name="type" class="custom-control-input">
+                                <label class="custom-control-label" for="job">Job</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row justify-content-center my-2">
+                        <div class="col-2 text-center">
+                            <button (click)="clearJob()"  class="btn btn-block btn-danger">Reset</button>
+                        </div>
+                        <div class="col-2 text-center">
+                            <input type="submit" (click)="newJob()" value="Insert" class="btn btn-block btn-primary">
+                        </div>
+                    </div>
+
+            </form>
+
+    </div>
+
+    <div class="col-md-9 p-2">
+        <h3>Your posted jobs</h3>
+
+        <div class="card-columns">
+            <ng-container *ngFor="let job of jobs">
+                <app-job [job]="job" (click)="pickJob(job)" [selectedJob]="insertingJob" (removed)="removed($event)"></app-job>
+            </ng-container>
+        </div>
+
+    </div>
+
+
+
+</div>

@@ -1,0 +1,23 @@
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="alert alert-warning text-center" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+        <h3>My applications</h3>
+        <hr>
+        <div class="card-columns" *ngIf="myApplications">
+            <div class="card p-2" *ngFor="let myApp of myApplications">
+                <app-application [application]="myApp"></app-application>
+                <app-rate-application [application]="myApp" (errors)="handleError($event)"></app-rate-application>
+            </div>
+        </div>
+
+        <div class="alert alert-warning" *ngIf="myApplications && myApplications.length==0">
+            You haven't applied for any Jobs.
+        </div>
+    </div>
+
+
+</div>

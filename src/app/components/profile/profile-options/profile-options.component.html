@@ -1,0 +1,36 @@
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <h1>Profile options</h1>
+        <hr>
+        <h3>Change password</h3>
+        <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+        <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+        </div>
+        <form [formGroup]="changePasswordGroup">
+            <div class="form-group">
+                <label for="old_password">Old password</label>
+                <input formControlName="old_password" type="password" class="form-control" id="old_password" placeholder="Password">
+                <small *ngIf="!f.old_password.valid" class="form-text text-danger">The old password is invalid.</small>
+            </div>
+            <div class="form-group">
+                <label for="new_password">New password</label>
+                <input formControlName="new_password" type="password" class="form-control" id="new_password" placeholder="New password">
+                <small *ngIf="!f.new_password.valid" class="form-text text-danger">New password is invalid.</small>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password">Confirm password</label>
+                <input formControlName="confirm_password" type="password" class="form-control" id="confirm_password" placeholder="Confirm new password password">
+                <small *ngIf="!f.confirm_password.valid" class="form-text text-danger">Confirm password is invalid.</small>
+            </div>
+
+            <div class="form-group">
+                <button (click)="changePassword()" class="btn btn-block btn-outline-success">Change password</button>
+            </div>
+        </form>
+
+
+    </div>
+
+
+</div>

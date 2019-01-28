@@ -6,6 +6,7 @@ export interface Permit{
     id: number;
     fair_id: number;
     company_id: number;
+    package_id: number;
     allowed: boolean;
     company?: Company;
     additionals?: Array<Additional>;

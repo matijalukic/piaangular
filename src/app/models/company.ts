@@ -1,3 +1,6 @@
+import {Job} from './job';
+import {Permit} from './permit';
+
 export interface Company {
     id: number;
     name: string;
@@ -9,4 +12,6 @@ export interface Company {
     domain: string;
     agency: string;
     speciality: string;
+    jobs?: Array<Job>;
+    permits?: Permit;
 }

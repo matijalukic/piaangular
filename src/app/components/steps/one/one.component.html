@@ -3,9 +3,22 @@
         <h3>Insert new Fair</h3>
     </div>
 
-    <div class="col-md-8">
-        <form [formGroup]="newFairForm" (submit)="onSubmit()">
-            <section class="form-row justify-content-center">
+    <div class="col-md-12">
+
+        <section class="form-row justify-content-center">
+            <label class="col-2 col-form-label">Upload json with fairs:</label>
+            <div class="col-5">
+                <input type="file" accept="application/json" (change)="importJson($event)" placeholder="Upload json" class="form-control"/>
+            </div>
+            <div class="col-5 alert alert-success text-center" *ngIf="fileContent">
+                The file has been imported!
+            </div>
+        </section>
+
+        <hr>
+
+        <form [formGroup]="newFairForm">
+            <section class="form-row">
                 <label class="col-2 col-form-label">Name:</label>
                 <div class="col-5">
                     <input type="text" [(ngModel)]="newFair.name" formControlName="name" placeholder="Fair Name" class="form-control" id="name"/>
@@ -14,7 +27,7 @@
                     This field is required
                 </div>
             </section>
-            <section class="form-row justify-content-center">
+            <section class="form-row">
                 <label class="col-2 col-form-label">Start time:</label>
                 <div class="col-5">
                     <input type="datetime-local" [(ngModel)]="newFair.start" formControlName="start" placeholder="Starting time" class="form-control" id="start"/>
@@ -23,7 +36,7 @@
                     This field is required
                 </div>
             </section>
-            <section class="form-row justify-content-center">
+            <section class="form-row">
                 <label class="col-2 col-form-label">End time:</label>
                 <div class="col-5">
                     <input type="datetime-local" [(ngModel)]="newFair.end" formControlName="end" placeholder="Ending time" class="form-control" id="end"/>
@@ -32,7 +45,7 @@
                     This field is required
                 </div>
             </section>
-            <section class="form-row justify-content-center">
+            <section class="form-row">
                 <label class="col-2 col-form-label">Place:</label>
                 <div class="col-5">
                     <input type="text" formControlName="place" [(ngModel)]="newFair.place" placeholder="Place" class="form-control" id="place"/>
@@ -41,7 +54,7 @@
                     This field is required
                 </div>
             </section>
-            <section class="form-row justify-content-center">
+            <section class="form-row">
                 <label class="col-2 col-form-label">About:</label>
                 <div class="col-5">
                     <textarea name="about" id="about" [(ngModel)]="newFair.about" formControlName="about" class="form-control" placeholder="More about this"></textarea>
@@ -50,13 +63,30 @@
                     This field is required
                 </div>
             </section>
-            <section class="form-row justify-content-center">
-                <div class="col-12 mt-2 text-center">
-                    <button class="btn btn-primary" type="submit">Next</button>
-                </div>
-            </section>
 
         </form>
+
+        <section class="form-row">
+            <label class="col-2 col-form-label">Add location:</label>
+            <div class="col-5 form-inline">
+                <input [formControl]="locationNameControl" type="text" class="form-control" name="locationName" placeholder="Enter location name">
+                <button (click)="addLocation()" class="btn btn-primary">Add</button>
+            </div>
+            <div class="col-5">
+                <h5>Locations:</h5>
+                <ul *ngIf="locations">
+                    <li *ngFor="let loc of locations">{{ loc }}</li>
+                </ul>
+            </div>
+        </section>
+
+
+
+        <section class="form-row justify-content-center">
+            <div class="col-12 mt-2 text-center">
+                <button (click)="onSubmit()" class="btn btn-primary" type="submit">Next</button>
+            </div>
+        </section>
     </div>
 
 </div>

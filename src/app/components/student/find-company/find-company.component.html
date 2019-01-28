@@ -1,0 +1,48 @@
+<div class="row">
+    <div class="col-md-12">
+        <h2>Find companies:</h2>
+        <div class="alert alert-warning" *ngIf="errorMessage">
+            {{ errorMessage }}
+        </div>
+        <form [formGroup]="searchFormGroup">
+            <div class="form-row">
+                <div class="col-md-3">
+                    <label class="my-1" for="inlineFormInputName2">Name</label>
+                    <input type="text"  formControlName="name" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" placeholder="Company name">
+                </div>
+                <div class="col-md-2">
+                    <label class="my-1" for="inlineFormInputGroupUsername2">City</label>
+                    <input type="text" formControlName="city" class="form-control mb-2 mr-sm-2" id="inlineFormInputGroupUsername2" placeholder="City">
+                </div>
+                <div class="col-md-3">
+                    <label class="my-1">Employees</label>
+                    <div class="input-group">
+                        <input type="number" formControlName="min_employees" class="form-control mb-2 mr-sm-2" placeholder="Min employees">
+                        <input type="number" formControlName="max_employees" class="form-control mb-2 mr-sm-2" placeholder="Max employees">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <label> Agency:</label>
+                    <select class="custom-select my-1 mr-sm-2" formControlName="agency">
+                        <option selected>Choose...</option>
+                        <option value="it">IT</option>
+                        <option value="telekomunikacije">Telecomunications</option>
+                    </select>
+                </div>
+                <div class="col-md-2 d-flex align-bottom">
+                    <button type="submit" class="btn btn-block mt-auto btn-primary mb-2" (click)="search()">Submit</button>
+                </div>
+            </div>
+
+        </form>
+
+        <div class="alert alert-warning my-2" *ngIf="contentMessage">{{ contentMessage }}</div>
+
+        <h3 class="my-3">Companies:</h3>
+        <div class="card-deck">
+            <app-card-company *ngFor="let company of showingCompanies" [showingCompany]="company"></app-card-company>
+        </div>
+    </div>
+
+
+</div>

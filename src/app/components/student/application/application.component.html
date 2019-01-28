@@ -1,0 +1,21 @@
+<div class="card">
+    <div class="card-header">
+        <h4 *ngIf="!application.job">Your application</h4>
+        <a [href]="'/job/' + application.job_id" *ngIf="application.job"><h4>{{ application.job.name }}</h4></a>
+    </div>
+    <div class="card-body">
+        <div class="card-text">
+            <span *ngIf="!application.accepted" class="badge badge-danger">Not accepted</span>
+            <span *ngIf="application.accepted" class="badge badge-success">Accepted : {{ application.accepted | date : 'medium' }}</span>
+        </div>
+
+        <label>Cover letter:</label>
+        <textarea *ngIf="application.cover_letter!=null" class="form-control my-1 disabled" disabled="disabled">{{ application.cover_letter }}</textarea>
+
+        <a [href]="serverUrl + '/pdf/' + application.pdf" target="_blank" class="btn btn-outline-primary btn-block" *ngIf="application.pdf">CV PDF</a>
+
+        <span class="badge badge-info">
+            Posted: {{ application.createdAt | date : "medium" }}
+        </span>
+    </div>
+</div>

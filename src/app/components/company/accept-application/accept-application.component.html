@@ -1,0 +1,11 @@
+<div class="my-2 p-2 text-center">
+    <button *ngIf="application.accepted==null"  (click)="accept()"  class="btn btn-outline-success">Accept the Application</button>
+
+    <div *ngIf="application.accepted && user" class="alert alert-success">
+        This application is accepted to the student:
+        <strong>{{ user.username }}</strong>, email: <em>{{ user.email }}</em>
+    </div>
+</div>
+
+
+

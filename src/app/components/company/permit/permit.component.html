@@ -1,0 +1,20 @@
+<div class="card my-2" *ngIf="permit">
+    <div class="card-body" *ngIf="permit.package && permit.additionals">
+        You have requested <em>{{ permit.package.title }}</em>, price: <strong>{{ permit.package.price }}</strong>
+        <ul>
+            <li *ngFor="let addit of permit.additionals">
+                {{ addit.title }} - {{ addit.price }}
+            </li>
+        </ul>
+    </div>
+
+    <div class="card-footer">
+        <div class="alert alert-success" *ngIf="permit.allowed">
+            You permit is allowed!
+        </div>
+        <div class="alert alert-warning" *ngIf="!permit.allowed">
+            Your permit is not allowed
+            <button class="btn btn-outline-danger" (click)="cancelParticipation()">Cancel Participation</button>
+        </div>
+    </div>
+</div>

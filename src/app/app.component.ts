@@ -12,6 +12,8 @@ export class AppComponent {
     @Input() loggedUser: User;
     title = 'jobfair';
     isAdmin: boolean;
+    isCompany = false;
+    isStudent = false;
 
     constructor(private userService: UserService) {
         this.userService.getUser.subscribe((loggedUser: User) => {
@@ -19,6 +21,7 @@ export class AppComponent {
 
             // if the user is logged check if is admin
             if(this.loggedUser) {
+                // check if it is admin
                 userService.isAdmin().then(
                     (admin) => {
                         this.isAdmin = true;
@@ -27,6 +30,20 @@ export class AppComponent {
                         this.isAdmin = false;
                     }
                 );
+
+                // set the company
+                this.userService.isCompany().subscribe(
+                    (company) => {
+                        if(company)
+                            this.isCompany = true;
+                    },
+                )
+
+                // set if it is student
+                this.userService.isStudent()
+                    .subscribe((res) => {
+                        if(res) this.isStudent = true;
+                    });
             }
         });
 
@@ -34,6 +51,7 @@ export class AppComponent {
     }
 
     logOut() {
+        localStorage.removeItem('idToken');
         this.userService.logOut();
         this.userService.getUser.next(null);
     }

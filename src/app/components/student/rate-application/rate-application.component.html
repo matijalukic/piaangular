@@ -1,0 +1,14 @@
+<div *ngIf="!application.rate && application.accepted" class="form-inline justify-content-around">
+    <label for="rate">Rate:</label>
+    <select class="form-control" id="rate" [formControl]="rateControl">
+        <option value="1">1 star</option>
+        <option value="2">2 stars</option>
+        <option value="3">3 stars</option>
+        <option value="4">4 stars</option>
+        <option value="5">5 stars</option>
+    </select>
+    <button class="btn btn-outline-primary" (click)="rate()">Rate</button>
+</div>
+<div *ngIf="application.rate" class="alert alert-success">
+    You have rated this job with <strong>{{ application.rate }} stars</strong>
+</div>

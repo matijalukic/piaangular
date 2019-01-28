@@ -14,7 +14,8 @@ import {FairsService} from '../../../services/fairs.service';
   styleUrls: ['./new-fair.component.css']
 })
 export class NewFairComponent implements OnInit {
-	@Input() selectedComponent: any;
+	@Input()
+    selectedComponent: any;
 
 	newFair: Fair;
 
@@ -36,6 +37,9 @@ export class NewFairComponent implements OnInit {
 
 	// images that was uploaded
     images: Array<string>;
+
+    // locations of the fair
+    locations: Array<string>;
 
 	@Input()
 	showingNo: number;
@@ -62,6 +66,7 @@ export class NewFairComponent implements OnInit {
 		try{
 			// init the fair model
 			this.newFair = JSON.parse(localStorage.getItem('newfair')) as Fair;
+            this.locations = JSON.parse(localStorage.getItem('locations')) as Array<string>;
 
 			// insert import packages
             this.importingPackages = localStorage.getItem('importingPackages');
@@ -133,7 +138,8 @@ export class NewFairComponent implements OnInit {
 
         // inserts all fair
         try {
-            let insertingFairResponse = await this.fairService.insertNewFair(this.newFair).toPromise();
+            // insert fair
+            let insertingFairResponse = await this.fairService.insertNewFair(this.newFair, this.locations).toPromise();
             console.log(insertingFairResponse);
 
             this.clearNotifications();
@@ -179,8 +185,41 @@ export class NewFairComponent implements OnInit {
             this.notificationsElement.nativeElement.scrollIntoView({behavior: 'smooth'});
         }
 
+    }
 
+    acceptLocations(locations: Array<string>){
+	    this.locations = locations;
+    }
 
+    importedFairs(data: string){
+        let rawData = JSON.parse(data);
+
+        let fairs = rawData.Fairs;
+
+        if(fairs.length > 0) {
+            this.newFair.name = fairs[0].Fair;
+            this.newFair.start = new Date( fairs[0].StartDate + " " + fairs[0].StartTime).toISOString().slice(0,16);
+            this.newFair.end = new Date(fairs[0].EndDate + " " + fairs[0].EndTime).toISOString().slice(0,16);
+            this.newFair.place = fairs[0].Place;
+            this.newFair.about = fairs[0].About;
+
+            localStorage.setItem('newfair', JSON.stringify(this.newFair));
+        }
+
+        let locations = rawData.Locations;
+
+        if(locations) {
+            for (let location of locations) {
+                if (location.Place == this.newFair.place) {
+                    for (let loc of location.Location) {
+                        if (!this.locations) this.locations = [];
+                        this.locations.push(loc.Name)
+                    }
+                }
+            }
+            // save locations
+            localStorage.setItem('locations', JSON.stringify(this.locations));
+        }
 
     }
 

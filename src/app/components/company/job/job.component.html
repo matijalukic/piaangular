@@ -1,0 +1,11 @@
+<div class="job card p-2" [class.bg-light]="selectedJob==job">
+    <div class="card-body">
+        <button type="button" (click)="removeJob()" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <a routerLink="/panel/view/job/{{ job.id }}"><h5 class="card-title">{{ job.name }}</h5></a>
+        <span class="badge badge-primary">{{ job.type }}</span>
+        <p class="card-text">{{ job.text }}</p>
+        <p class="card-text"><small class="text-muted">Open for applications: {{ job.start | date : 'medium' }} - {{ job.end | date : 'medium'}}</small></p>
+    </div>
+</div>

@@ -11,7 +11,8 @@ import {UserService} from '../../../services/user.service';
 export class FourComponent implements OnInit, StepComponent {
     @Input()
         newFair: Fair;
-
+    @Input()
+        locations: Array<string>;
 
     @Output()
         submited = new EventEmitter();

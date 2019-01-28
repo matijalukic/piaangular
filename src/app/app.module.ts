@@ -19,6 +19,24 @@ import { ThreeComponent } from './components/steps/three/three.component';
 import { FourComponent } from './components/steps/four/four.component';
 import { ImageUploadComponent } from './components/steps/image-upload/image-upload.component';
 import { CompanyComponent } from './components/company/company.component';
+import { ParticipationsComponent } from './components/company/participations/participations.component';
+import { PermitComponent } from './components/company/permit/permit.component';
+import { InsertJobComponent } from './components/company/jobs/insert-job/insert-job.component';
+import { JobComponent } from './components/company/job/job.component';
+import { FindCompanyComponent } from './components/student/find-company/find-company.component';
+import { CardCompanyComponent } from './components/student/card-company/card-company.component';
+import { JobOfferComponent } from './components/student/job-offer/job-offer.component';
+import { FindJobComponent } from './components/student/find-job/find-job.component';
+import { SingleJobComponent } from './components/student/single-job/single-job.component';
+import { ApplicationComponent } from './components/student/application/application.component';
+import { MyApplicationsComponent } from './components/student/my-applications/my-applications.component';
+import { ViewJobComponent } from './components/company/view-job/view-job.component';
+import { AcceptApplicationComponent } from './components/company/accept-application/accept-application.component';
+import { RateApplicationComponent } from './components/student/rate-application/rate-application.component';
+import { RegisterComponent } from './components/register/register.component';
+import { ProfileOptionsComponent } from './components/profile/profile-options/profile-options.component';
+import { SingleFairComponent } from './components/single-fair/single-fair.component';
+import { FairShowComponent } from './components/fair-show/fair-show.component';
 
 @NgModule({
   declarations: [
@@ -35,8 +53,26 @@ import { CompanyComponent } from './components/company/company.component';
     ThreeComponent,
     FourComponent,
     ImageUploadComponent,
-      AdminFairsComponent,
-      CompanyComponent
+    AdminFairsComponent,
+    CompanyComponent,
+    ParticipationsComponent,
+    PermitComponent,
+    InsertJobComponent,
+    JobComponent,
+    FindCompanyComponent,
+    CardCompanyComponent,
+    JobOfferComponent,
+    FindJobComponent,
+    SingleJobComponent,
+    ApplicationComponent,
+    MyApplicationsComponent,
+    ViewJobComponent,
+    AcceptApplicationComponent,
+    RateApplicationComponent,
+    RegisterComponent,
+    ProfileOptionsComponent,
+    SingleFairComponent,
+    FairShowComponent,
   ],
   imports: [
     BrowserModule,

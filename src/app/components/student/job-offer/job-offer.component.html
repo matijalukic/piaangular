@@ -1,0 +1,14 @@
+<div class="job card my-2" *ngIf="job" [class.bg-light]="selectedJob==job">
+    <div class="card-header">
+        <a [routerLink]="['/job', job.id]"><h4 class="m-0">{{ job.name }}</h4></a>
+    </div>
+    <div class="card-body">
+        <span class="badge badge-primary">{{ job.type }}</span>
+        <span class="badge badge-danger" *ngIf="isClosed">closed</span>
+        <p class="card-text">{{ job.text }}</p>
+        <p class="card-text"><small class="text-muted">Open for applications: {{ job.start | date : 'medium' }} - {{ job.end | date : 'medium'}}</small></p>
+    </div>
+    <div class="card-footer" *ngIf="job.company">
+        Company: <a [routerLink]="['/company', job.company_id]">{{ job.company.name }}</a>
+    </div>
+</div>

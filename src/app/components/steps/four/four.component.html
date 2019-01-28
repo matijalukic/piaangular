@@ -45,16 +45,25 @@
                     <th>End accepting participate:</th>
                     <td>{{ (newFair.endParticipate | date: "full") || "--no date set--" }}</td>
                 </tr>
+                <tr>
+                    <th>Locations:</th>
+                    <td>
+                        <ul>
+                            <li *ngFor="let loc of locations">{{ loc }}</li>
+                        </ul>
+
+                    </td>
+                </tr>
             </tbody>
         </table>
 
         <h3 class="my-3">Images</h3>
         <hr>
-            <ul class="nav nav-pills">
-                <li *ngFor="let image of images; let i = index" class="nav-item">
-                    <a class="nav-link pick-image" [class.active]="i==showingImageIndex" (click)="showImage(image)">{{ image }}</a>
-                </li>
-            </ul>
+        <ul class="nav nav-pills">
+            <li *ngFor="let image of images; let i = index" class="nav-item">
+                <a class="nav-link pick-image" [class.active]="i==showingImageIndex" (click)="showImage(image)">{{ image }}</a>
+            </li>
+        </ul>
         <img *ngIf="images" [src]="showingImage" alt="Showing image" class="img-thumbnail">
 
 
