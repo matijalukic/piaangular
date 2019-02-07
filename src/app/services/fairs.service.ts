@@ -6,12 +6,7 @@ import {UserService} from './user.service';
 import {Permit} from '../models/permit';
 import {Company} from '../models/company';
 
-const httpOptions = {
-  headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Authorization': 'Bearer ' + localStorage.getItem('idToken')
-  })
-};
+
 
 const httpHeaders = new HttpHeaders({
     'Content-Type':  'application/json',
@@ -40,15 +35,16 @@ export class FairsService {
 
 
     fairs(): Observable<any> {
-        // set here
-        httpHeaders.set('Authorization', 'Bearer ' + FairsService.getToken());
-
-        return this.httpClient.get(`${UserService.url}admin/fairs`, httpOptions);
+        return this.httpClient.get(`${UserService.url}admin/fairs`, {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+            })
+        });
     }
 
     companyFairs(companyId: number = null): Observable<any> {
         // set here
-        // httpHeaders.set('Authorization', 'Bearer ' + FairsService.getToken());
         let options = {
             headers: new HttpHeaders({
                 'Content-Type':  'application/json',
@@ -64,12 +60,16 @@ export class FairsService {
     /**
      * Inserting new fair
      * @param newFair : Fair
+     * @param locations: Array of locations
      */
-    insertNewFair(newFair: Fair): Observable<any>{
+    insertNewFair(newFair: Fair, locations: Array<string>): Observable<any>{
           let token = localStorage.getItem('idToken');
           console.log("Inserting new fair..." + JSON.stringify(newFair) + " : " +  token);
           return this.httpClient.post(UserService.url + 'admin/newfair',
-                  newFair,
+              {
+                  fair: newFair,
+                  locations: locations
+              },
               {
                   headers: {
                       'Authorization' : 'Bearer ' + token
@@ -107,7 +107,10 @@ export class FairsService {
      */
     entriesOfFair(selectedFair: Fair): Observable<any> {
         return this.httpClient.get('http://localhost:3000/admin/fair/permits', {
-            headers: httpHeaders,
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+            }),
             params: {
                 'fair_id': "" + selectedFair.id
             }
@@ -117,18 +120,25 @@ export class FairsService {
     /**
      * Allow the permit(participation of the company
      */
-    allowParticipate(permit: Permit): Observable<any>{
+    allowParticipate(permit: Permit, location_id: number): Observable<any>{
         return this.httpClient.get(UserService.url + 'admin/allowpermit', {
-            headers: httpHeaders,
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+            }),
             params: {
-                id: "" + permit.id
+                id: "" + permit.id,
+                location_id: String(location_id)
             }
         })
     }
 
     forbidParticipate(permit: Permit): Observable<any>{
         return this.httpClient.get(UserService.url + 'admin/forbidpermit', {
-            headers: httpHeaders,
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+            }),
             params: {
                 id: "" + permit.id
             }
@@ -137,32 +147,38 @@ export class FairsService {
 
     // cancel particiaption
     cancelParticipate(permit: Permit): Observable<any>{
-        httpHeaders.set('Authorization', 'Bearer ' + FairsService.getToken());
         return this.httpClient.get(`${UserService.url}company/cancel/participation`, {
-            headers: httpHeaders,
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+            }),
             params: new HttpParams()
                 .set('id', '' + permit.id),
         });
     }
 
     newPermit(packageID: number, additionals: Array<number>, fairID: number, company: Company): Observable<any> {
-        httpHeaders.set('Authorization', 'Bearer ' + FairsService.getToken());
         return this.httpClient.post(`${UserService.url}company/newpermit`, {
             'fair_id': "" + fairID,
             'package_id': "" + packageID,
             'additionals_id': additionals,
             'company_id': "" + company.id
         }, {
-            headers: httpHeaders
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+            })
         });
     }
 
     // find permits of the company
     findPermits(company: Company): Observable<any>{
-        httpHeaders.set('Authorization', 'Bearer ' + FairsService.getToken());
 
         return this.httpClient.get(`${UserService.url}company/findpermit`, {
-            headers: httpHeaders,
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+            }),
             params: {
                 'company_id': "" + company.id
             }
@@ -171,10 +187,12 @@ export class FairsService {
 
     // returns a Permit with the package and additionals set
     findPermitById(id: number): Observable<any> {
-        httpHeaders.set('Authorization', 'Bearer ' + FairsService.getToken());
 
         return this.httpClient.get(`${UserService.url}company/permit`, {
-            headers: httpHeaders,
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+            }),
             params: {
                 'id': "" + id
             }

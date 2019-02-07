@@ -27,7 +27,7 @@ import {FairShowComponent} from './components/fair-show/fair-show.component';
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'fairs',  component: FairsComponent },
-    { path: 'home',   component: HomeComponent},
+    { path: 'home',   component: HomeComponent },
     { path: 'company/:id', component: CompanyComponent, },
     { path: 'job/:id', component: SingleJobComponent, },
     { path: 'fair/:id', component: FairShowComponent, },

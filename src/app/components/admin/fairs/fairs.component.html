@@ -20,7 +20,7 @@
                     <td>{{ fair.end | date }}</td>
                     <td>{{ fair.place }}</td>
                     <td>
-                        <button class="btn btn-outline-primary" (click)="selectFair(fair)">View Entries</button>
+                        <button class="btn btn-outline-primary" (click)="selectFair(fair)">Entries</button>
                     </td>
                 </tr>
             </tbody>
@@ -28,40 +28,52 @@
 
     </div>
 
-    <div class="col-md-6 px-2"  *ngIf="selectedFair">
+    <form class="col-md-6 px-2"  *ngIf="selectedFair">
         <div class="alert alert-warning" *ngIf="errorMessage">{{ errorMessage }}</div>
         <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
         <h3>{{ selectedFair.name }} - entries:</h3>
-        <table class="table table-hover table-striped">
+        <table class="table table-hover">
             <thead>
             <tr>
                 <th>Company</th>
                 <th>Package</th>
                 <th>Additionals</th>
-                <th></th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let entry of entriesOfFair">
-                <td>{{ entry.company?.name }} - {{ entry.company?.address}}</td>
-                <td>{{ entry.package?.title }} - {{ entry.package?.price }}</td>
-                <td>
-                    <ul *ngIf="entry.additionals">
-                        <li *ngFor="let add of entry.additionals">
-                            {{ add.title }} - {{ add.price }}
-                        </li>
-                    </ul>
+                <ng-container *ngFor="let entry of entriesOfFair">
+                    <tr>
+                        <td>{{ entry.company?.name }} - {{ entry.company?.address}}</td>
+                        <td>{{ entry.package?.title }} - {{ entry.package?.price }}</td>
+                        <td>
+                            <ul *ngIf="entry.additionals">
+                                <li *ngFor="let add of entry.additionals">
+                                    {{ add.title }} - {{ add.price }}
+                                </li>
+                            </ul>
 
-                </td>
-                <td>
-                    <button class="btn btn-outline-primary" *ngIf="!entry.allowed" (click)="allow(entry)">Allow</button>
-                    <button class="btn btn-outline-danger" *ngIf="entry.allowed"  (click)="forbid(entry)">Forbid</button>
-                </td>
-            </tr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <form *ngIf="!entry.allowed" class="form-inline justify-content-center">
+                                <label for="location_id">Location:</label>
+                                <select [formControl]="locationControl" name="location_id" id="location_id" class="form-control form-control-sm">
+                                    <option *ngFor="let loc of locations" [value]="loc.id">{{ loc.name }}</option>
+                                </select>
+                                <button class="btn btn-sm btn-outline-primary" (click)="allow(entry)">Allow</button>
+                            </form>
+                            <div *ngIf="entry.allowed" class="justify-content-between">
+                                <span class="badge badge-info">Location: <strong>{{ entry.location.name }}</strong></span>
+                                <button class="btn btn-sm btn-outline-danger"  (click)="forbid(entry)">Forbid</button>
+                            </div>
+                        </td>
+                    </tr>
+                </ng-container>
             </tbody>
         </table>
 
-    </div>
+    </form>
 
 
 </div>

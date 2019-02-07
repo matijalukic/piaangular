@@ -2,6 +2,7 @@ import {Company} from './company';
 import {Additional} from './additional';
 import {Package} from './package';
 import {Permit} from './permit';
+import {Location} from './location';
 
 export interface Fair {
   id?: number;
@@ -19,4 +20,5 @@ export interface Fair {
   additionals? : Array<Additional>;
   packages?: Array<Package>;
   permits?: Array<Permit>;
+  locations?: Array<Location>;
 }

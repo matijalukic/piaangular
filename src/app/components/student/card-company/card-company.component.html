@@ -36,8 +36,12 @@
                     <td>{{ showingCompany.agency }} - {{ showingCompany.speciality}}</td>
                 </tr>
                 <tr *ngIf="packageName">
-                    <th>Participate as:</th>
-                    <td>{{ packageName }}</td>
+                    <th>Package:</th>
+                    <td><span class="badge badge-info">{{ packageName }}</span></td>
+                </tr>
+                <tr *ngIf="location">
+                    <th>Location:</th>
+                    <td><span class="badge badge-primary">{{ location }}</span></td>
                 </tr>
                 </tbody>
             </table>

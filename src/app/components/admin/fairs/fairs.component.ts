@@ -2,7 +2,9 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Fair} from '../../../models/fair';
 import {FairsService} from '../../../services/fairs.service';
 import {Permit} from '../../../models/permit';
+import {Location} from '../../../models/location';
 import {Observable, Subscription} from 'rxjs';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-fairs',
@@ -15,10 +17,18 @@ export class FairsComponent implements OnInit {
     successMessage: string;
     fairsList: Array<Fair>;
     selectedFair: Fair;
+    locations: Array<Location>;
+
     @Input()
     entriesOfFair: Array<Permit>;
 
-    constructor( private fairsService: FairsService) { }
+    locationControl: FormControl;
+
+    constructor( private fairsService: FairsService,
+                 private fb: FormBuilder) {
+        this.locationControl = new FormControl();
+        this.locationControl.setValidators(Validators.required);
+    }
 
     ngOnInit() {
         this.fairsService.fairs().subscribe((fairs) => {
@@ -31,6 +41,7 @@ export class FairsComponent implements OnInit {
         this.fairsService.entriesOfFair(this.selectedFair).subscribe(
             (permits) => {
                 this.entriesOfFair = permits as Array<Permit>;
+                this.locations = this.selectedFair.locations;
             });
     }
 
@@ -39,11 +50,9 @@ export class FairsComponent implements OnInit {
         this.loadEntries();
     }
 
-
-
     // allow company to participate
     allow(permit: Permit){
-        this.fairsService.allowParticipate(permit)
+        this.fairsService.allowParticipate(permit, this.locationControl.value)
             .subscribe(
                 (permit) => {
                     this.errorMessage = null;

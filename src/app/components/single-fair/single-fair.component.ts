@@ -43,4 +43,13 @@ export class SingleFairComponent implements OnInit {
         return null;
     }
 
+    private locationName(locationId: number){
+        if(this.showingFair.locations){
+            let locs = this.showingFair.locations.filter((loc) =>  loc.id == locationId);
+            if(locs.length == 0) return null;
+            return locs.shift().name;
+        }
+        return null;
+    }
+
 }

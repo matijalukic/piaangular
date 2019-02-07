@@ -14,6 +14,9 @@ export class CardCompanyComponent implements OnInit {
     @Input()
     showingCompany: Company;
 
+    @Input()
+    location: string = null;
+
     constructor() { }
 
     ngOnInit() {
