@@ -12,20 +12,21 @@ export class StudentService {
       private httpClient: HttpClient
   ) { }
 
-  findCompanies(name: string, city: string, minEmployees: number, maxEmployees: number, agency :string) : Observable<any>{
-      const searchParams = new HttpParams()
+    findCompanies(name: string, city: string, minEmployees: number, maxEmployees: number, agency :string) : Observable<any>{
+        const searchParams = new HttpParams()
                             .set('name', name)
                             .set('city', city)
           .set('min_employees', String(minEmployees))
           .set('max_employees', String(maxEmployees))
           .set('agency', agency);
-      return this.httpClient.get(`${UserService.url}student/findcompany`, {
+
+        return this.httpClient.get(`${UserService.url}student/findcompany`, {
           params: searchParams,
           headers: new HttpHeaders({
               'Authorization': 'Bearer ' + localStorage.getItem('idToken')
           })
-      })
-  }
+        })
+    }
 
 
     findJob(name: string, type: Array<string>) : Observable<any>{

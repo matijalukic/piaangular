@@ -5,6 +5,7 @@ import {Fair} from '../models/fair';
 import {UserService} from './user.service';
 import {Permit} from '../models/permit';
 import {Company} from '../models/company';
+import {User} from '../models/user';
 
 
 
@@ -145,6 +146,19 @@ export class FairsService {
         })
     }
 
+    insertLocation(name: string, fairId: number): Observable<any>{
+        return this.httpClient.get(`${UserService.url}admin/fair/location/insert`, {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+            }),
+            params: {
+                fair_id: String(fairId),
+                name: name
+            }
+        })
+    }
+
     // cancel particiaption
     cancelParticipate(permit: Permit): Observable<any>{
         return this.httpClient.get(`${UserService.url}company/cancel/participation`, {
@@ -197,6 +211,15 @@ export class FairsService {
                 'id': "" + id
             }
         })
+    }
+
+    editFair(editingFair: Fair): Observable<any>{
+        return this.httpClient.post(`${UserService.url}admin/fair/edit`, editingFair, {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('idToken')
+            })
+        });
     }
 
 

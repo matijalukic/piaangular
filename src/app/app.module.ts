@@ -37,6 +37,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { ProfileOptionsComponent } from './components/profile/profile-options/profile-options.component';
 import { SingleFairComponent } from './components/single-fair/single-fair.component';
 import { FairShowComponent } from './components/fair-show/fair-show.component';
+import { NewLocationComponent } from './components/new-location/new-location.component';
+import { CompaniesComponent} from './components/companies/companies.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +75,8 @@ import { FairShowComponent } from './components/fair-show/fair-show.component';
     ProfileOptionsComponent,
     SingleFairComponent,
     FairShowComponent,
+    NewLocationComponent,
+    CompaniesComponent,
   ],
   imports: [
     BrowserModule,

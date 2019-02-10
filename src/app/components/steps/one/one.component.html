@@ -66,21 +66,7 @@
 
         </form>
 
-        <section class="form-row">
-            <label class="col-2 col-form-label">Add location:</label>
-            <div class="col-5 form-inline">
-                <input [formControl]="locationNameControl" type="text" class="form-control" name="locationName" placeholder="Enter location name">
-                <button (click)="addLocation()" class="btn btn-primary">Add</button>
-            </div>
-            <div class="col-5">
-                <h5>Locations:</h5>
-                <ul *ngIf="locations">
-                    <li *ngFor="let loc of locations">{{ loc }}</li>
-                </ul>
-            </div>
-        </section>
-
-
+        <app-new-location [fair]="newFair" [locations]="locations" (onAdded)="updateLocations($event)"></app-new-location>
 
         <section class="form-row justify-content-center">
             <div class="col-12 mt-2 text-center">

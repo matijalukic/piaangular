@@ -1,49 +1,64 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <a class="navbar-brand" href="#">JobFairs</a>
 
-        <ul class="navbar-nav ml-auto">
+    <form class="form-inline my-2 my-lg-0">
+        <input class="form-control form-control-sm" [formControl]="nameControl" type="search" placeholder="Search Companies" aria-label="Search">
+        <select [formControl]="agencyControl" class="form-control form-control-sm">
+            <option value="it">IT</option>
+            <option value="telekomunikacije">Telecommunication</option>
+        </select>
+        <input class="form-control form-control-sm" [formControl]="cityControl" placeholder="City">
+        <button class="btn btn-sm btn-success my-2 my-sm-0" (click)="searchCompanies()" type="submit">Search</button>
+    </form>
 
-            <li class="nav-item" *ngIf="isAdmin">
-                <a routerLink="/admin/newfair" routerLinkActive="active"  class="nav-link mx-2">New Fair</a>
-            </li>
-            <ng-container *ngIf="isCompany">
-                <li class="nav-item">
-                    <a routerLink="/panel/participations" routerLinkActive="active"  class="nav-link mx-2">Participations</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/panel/insert/job" routerLinkActive="active"  class="nav-link mx-2">Jobs</a>
-                </li>
-            </ng-container>
+    <ul class="navbar-nav ml-auto">
 
-            <ng-container *ngIf="isStudent">
-                <li class="nav-item">
-                    <a routerLink="/student/myapplications" routerLinkActive="active"  class="nav-link mx-2">My Applications</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/student/find/company" routerLinkActive="active"  class="nav-link mx-2">Find Company</a>
-                </li>
-                <li class="nav-item">
-                    <a routerLink="/student/find/job" routerLinkActive="active"  class="nav-link mx-2">Find Job</a>
-                </li>
-            </ng-container>
-            <li class="nav-item" *ngIf="isAdmin">
-                <a routerLink="/admin/fairs" routerLinkActive="active"  class="nav-link mx-2">List Fairs</a>
+        <li class="nav-item" *ngIf="isAdmin">
+            <a routerLink="/admin/newfair" routerLinkActive="active"  class="nav-link mx-2">New Fair</a>
+        </li>
+        <ng-container *ngIf="isCompany">
+            <li class="nav-item">
+                <a routerLink="/panel/participations" routerLinkActive="active"  class="nav-link mx-2">Participations</a>
             </li>
-            <li class="nav-item" *ngIf="loggedUser == null">
-                <a routerLink="/login" routerLinkActive="active"  class="nav-link mx-2">Login</a>
+            <li class="nav-item">
+                <a routerLink="/panel/insert/job" routerLinkActive="active"  class="nav-link mx-2">Jobs</a>
             </li>
-            <li class="nav-item" *ngIf="loggedUser">
-                <a class="nav-link" routerLinkActive="active" routerLink="/panel" >Zdravo, <strong>{{ loggedUser.username }}</strong></a>
+        </ng-container>
+
+        <ng-container *ngIf="isStudent">
+            <li class="nav-item">
+                <a routerLink="/student/myapplications" routerLinkActive="active"  class="nav-link mx-2">My Applications</a>
             </li>
-            <li class="nav-item" *ngIf="loggedUser">
-                <a (click)="logOut()"  href="#" class="nav-link text-danger mx-2">Log Out</a>
+            <li class="nav-item">
+                <a routerLink="/student/find/company" routerLinkActive="active"  class="nav-link mx-2">Find Company</a>
             </li>
-        </ul>
+            <li class="nav-item">
+                <a routerLink="/student/find/job" routerLinkActive="active"  class="nav-link mx-2">Find Job</a>
+            </li>
+        </ng-container>
+        <li class="nav-item" *ngIf="isAdmin">
+            <a routerLink="/admin/fairs" routerLinkActive="active"  class="nav-link mx-2">List Fairs</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedUser == null">
+            <a routerLink="/login" routerLinkActive="active"  class="nav-link mx-2">Login</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedUser == null">
+            <a routerLink="/register" routerLinkActive="active"  class="nav-link mx-2">Register</a>
+        </li>
+        <li class="nav-item" *ngIf="loggedUser">
+            <a class="nav-link" routerLinkActive="active" routerLink="/panel" >Zdravo, <strong>{{ loggedUser.username }}</strong></a>
+        </li>
+        <li class="nav-item" *ngIf="loggedUser">
+            <a (click)="logOut()"  href="#" class="nav-link text-danger mx-2">Log Out</a>
+        </li>
+    </ul>
 </nav>
+
 <div class="container">
 <router-outlet></router-outlet>
 </div>
-<footer class="row justify-content-center bg-dark text-light p-5">
+
+<footer class="row justify-content-center bg-dark text-light p-5 mt-3">
     <div class="col-md-9">
         <p class="text-muted text-center">Copyright 2019, ETF Beograd</p>
     </div>

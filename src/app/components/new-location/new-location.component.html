@@ -1,0 +1,14 @@
+<section class="form-row my-2" *ngIf="fair">
+    <div class="col-md-6 form-inline">
+        <label class="mr-1">Add location:</label>
+        <input [formControl]="locationNameControl" type="text" class="form-control mr-1" name="locationName" placeholder="Enter location name">
+        <button (click)="addLocation()" class="btn btn-primary">Add</button>
+    </div>
+    <div class="col-md-6">
+        <h5>Locations:</h5>
+        <div *ngIf="locations">
+            <span  class="badge badge-info mr-1" *ngFor="let loc of locations">{{ loc }}</span>
+        </div>
+        <button (click)="clearLocations()" class="btn btn-danger">Clear</button>
+    </div>
+</section>

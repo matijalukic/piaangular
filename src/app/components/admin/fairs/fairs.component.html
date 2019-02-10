@@ -1,5 +1,8 @@
 <div class="row">
-
+    <div class="col-md-12">
+        <div class="alert alert-warning" *ngIf="errorMessage">{{ errorMessage }}</div>
+        <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
+    </div>
     <div class="col-md-6 px-2">
         <h2>Fairs:</h2>
 
@@ -15,7 +18,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let fair of fairsList" [class.bg-light]="fair==selectedFair">
-                    <td>{{ fair.name }}</td>
+                    <td><button (click)="pickEditFair(fair)" class="btn btn-outline-info">{{ fair.name }}</button></td>
                     <td>{{ fair.start | date }}</td>
                     <td>{{ fair.end | date }}</td>
                     <td>{{ fair.place }}</td>
@@ -29,8 +32,6 @@
     </div>
 
     <form class="col-md-6 px-2"  *ngIf="selectedFair">
-        <div class="alert alert-warning" *ngIf="errorMessage">{{ errorMessage }}</div>
-        <div class="alert alert-success" *ngIf="successMessage">{{ successMessage }}</div>
         <h3>{{ selectedFair.name }} - entries:</h3>
         <table class="table table-hover">
             <thead>
@@ -75,5 +76,78 @@
 
     </form>
 
+
+    <div class="col-md-6 py-2" *ngIf="editingFair">
+        <h3>{{ editingFair.name }} - edit:</h3>
+
+
+            <section class="form-row my-1">
+                <label class="col-4 col-form-label">Name:</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="editingFair.name" placeholder="Fair Name" class="form-control" id="name"/>
+                </div>
+
+            </section>
+            <section class="form-row my-1">
+                <label class="col-4 col-form-label">Start time:</label>
+                <div class="col-8">
+                    <input type="text" disabled [(ngModel)]="editingFair.start" placeholder="Starting time" class="form-control" id="start"/>
+                </div>
+            </section>
+            <section class="form-row my-1">
+                <label class="col-4 col-form-label">End time:</label>
+                <div class="col-8">
+                    <input type="text" disabled [(ngModel)]="editingFair.end" placeholder="Ending time" class="form-control" id="end"/>
+                </div>
+            </section>
+            <section class="form-row my-1">
+                <label class="col-4 col-form-label">Place:</label>
+                <div class="col-8">
+                    <input type="text" [(ngModel)]="editingFair.place" placeholder="Place" class="form-control" id="place"/>
+                </div>
+            </section>
+            <section class="form-row my-1">
+                <label class="col-4 col-form-label">About:</label>
+                <div class="col-8">
+                    <textarea name="about" id="about" [(ngModel)]="editingFair.about"  class="form-control" placeholder="More about this"></textarea>
+                </div>
+            </section>
+
+        <section class="form-row my-1 justify-content-center">
+            <label class="col-4 col-form-label">Begin accepting CV:</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="editingFair.startCV"  placeholder="Starting time" class="form-control"/>
+            </div>
+        </section>
+        <section class="form-row my-1 justify-content-center">
+            <label class="col-4 col-form-label">End accepting CV:</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="editingFair.endCV"  placeholder="Ending time" class="form-control"/>
+            </div>
+        </section>
+
+        <section class="form-row my-1 justify-content-center">
+            <label class="col-4 col-form-label">Begin accepting participation:</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="editingFair.startParticipate" placeholder="Starting time" class="form-control"/>
+            </div>
+        </section>
+        <section class="form-row my-1 justify-content-center">
+            <label class="col-4 col-form-label">End accepting participation:</label>
+            <div class="col-8">
+                <input type="text" [(ngModel)]="editingFair.endParticipate"  placeholder="Ending time" class="form-control"/>
+            </div>
+        </section>
+
+        <app-new-location [fair]="editingFair" [locations]="locationsNames" (onNewLocation)="addLocation($event)" (onAdded)="updateLocations($event)"></app-new-location>
+
+        <section class="form-row justify-content-center">
+            <div class="col-12 mt-2 text-center">
+                <button (click)="editFair()" class="btn btn-warning" type="submit">Save</button>
+            </div>
+        </section>
+    
+
+    </div>
 
 </div>

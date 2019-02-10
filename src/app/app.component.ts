@@ -2,6 +2,8 @@ import {Component, Input} from '@angular/core';
 import {User} from './models/user';
 import {UserService} from './services/user.service';
 import {log} from 'util';
+import {Form, FormControl, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,18 @@ export class AppComponent {
     isCompany = false;
     isStudent = false;
 
-    constructor(private userService: UserService) {
+    nameControl: FormControl;
+    agencyControl: FormControl;
+    cityControl: FormControl;
+
+    constructor(
+        private userService: UserService,
+        private router: Router
+    ) {
+        this.nameControl = new FormControl("", Validators.required);
+        this.agencyControl = new FormControl("", Validators.required);
+        this.cityControl = new FormControl("", Validators.required);
+
         this.userService.getUser.subscribe((loggedUser: User) => {
             this.loggedUser = loggedUser;
 
@@ -47,7 +60,11 @@ export class AppComponent {
             }
         });
 
+    }
 
+    searchCompanies(){
+        this.router.navigate(['companies'], {queryParams: {name: this.nameControl.value, agency: this.agencyControl.value, city: this.cityControl.value}
+        });
     }
 
     logOut() {

@@ -13,7 +13,7 @@ export class OneComponent implements OnInit, StepComponent {
 	errors: string[];
 	fileContent: string;
     successMessage: string;
-	locationNameControl: FormControl;
+
 
 	@Output()
 	submited = new EventEmitter<Fair>();
@@ -31,8 +31,7 @@ export class OneComponent implements OnInit, StepComponent {
     locations: Array<string>;
 
 	constructor(private formBuilder: FormBuilder) {
-	    this.locationNameControl = new FormControl('');
-	    this.locationNameControl.setValidators(Validators.required);
+
 	}
 
     ngOnInit() {
@@ -61,15 +60,10 @@ export class OneComponent implements OnInit, StepComponent {
         this.locationsSent.emit(this.locations);
     }
 
-    // add location
-    addLocation(){
-	    if(this.locationNameControl.valid){
-	        if(!this.locations) this.locations = [];
-	        this.locations.push(this.locationNameControl.value);
-	        this.locationNameControl.reset();
-        }
+    updateLocations(locations: Array<string>){
+	    this.locations = locations;
+        this.locationsSent.emit(this.locations);
     }
-
 
     file: any;
 

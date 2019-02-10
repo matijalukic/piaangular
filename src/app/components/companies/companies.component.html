@@ -1,0 +1,24 @@
+
+<div class="row">
+
+    <div class="col-md-12">
+        <h2>Founded companies</h2>
+
+
+        <div class="card-columns" *ngIf="companies && companies.length">
+            <app-card-company *ngFor="let comp of companies" [showingCompany]="comp"></app-card-company>
+        </div>
+
+
+        <div *ngIf="emptyMessage" class="alert alert-warning text-center">
+            {{ emptyMessage }}
+        </div>
+
+
+    </div>
+
+
+
+
+</div>
+

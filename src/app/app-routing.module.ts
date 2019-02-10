@@ -22,12 +22,14 @@ import {ViewJobComponent} from './components/company/view-job/view-job.component
 import {RegisterComponent} from './components/register/register.component';
 import {ProfileOptionsComponent} from './components/profile/profile-options/profile-options.component';
 import {FairShowComponent} from './components/fair-show/fair-show.component';
+import {CompaniesComponent} from './components/companies/companies.component';
 
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full'},
     { path: 'fairs',  component: FairsComponent },
     { path: 'home',   component: HomeComponent },
+    { path: 'companies', component: CompaniesComponent },
     { path: 'company/:id', component: CompanyComponent, },
     { path: 'job/:id', component: SingleJobComponent, },
     { path: 'fair/:id', component: FairShowComponent, },

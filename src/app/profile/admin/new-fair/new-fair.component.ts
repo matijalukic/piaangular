@@ -189,6 +189,7 @@ export class NewFairComponent implements OnInit {
 
     acceptLocations(locations: Array<string>){
 	    this.locations = locations;
+        localStorage.setItem('locations', JSON.stringify(this.locations));
     }
 
     importedFairs(data: string){
