@@ -81,18 +81,22 @@ export class SingleJobComponent implements OnInit {
     }
 
     submit(){
-        if(this.coverLetterControl.valid){
+        if(this.selectedFile == null && this.coverLetterControl.value == null)
+            this.errorMessage = "You must fill the cover letter or the pdf CV";
+        else {
             this.studentService.applyForJob(this.loggedStudent.id, this.job.id, this.coverLetterControl.value, this.selectedFile)
                 .subscribe(
                     (succ) => {
                         console.log(succ);
                         this.successMessage = succ.successMessage;
+                        this.errorMessage = null;
                     },
                     (err) => {
-                        console.log(err);
+                        this.successMessage = null;
                         this.errorMessage = err.error.errorMessage;
                     }
                 );
+            console.log(this.coverLetterControl.value);
         }
     }
 }

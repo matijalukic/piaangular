@@ -21,15 +21,12 @@ export class FairShowComponent implements OnInit {
         this.fairsService.findFair(this.id)
             .subscribe(
                 (succ) => {
-                    console.log(succ);
                     this.showingFair = succ as Fair;
 
                     try{
                         this.images = JSON.parse(this.showingFair.images);
                         console.log(this.images);
-                    }catch (e) {
-
-                    }
+                    }catch (e) {}
                 },
                 (err) => {
                     console.log(err);

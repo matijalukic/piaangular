@@ -14,13 +14,10 @@ import {Company} from '../models/company';
 export class UserService {
     static url = 'http://localhost:3000/';
     private loggedUserSubject: BehaviorSubject<User>;
-    private errorMessage: string;
-
 
     constructor(private httpClient: HttpClient,
                 private router: Router) {
         this.loggedUserSubject = new BehaviorSubject(JSON.parse(localStorage.getItem('user')));
-
     }
 
 
@@ -32,7 +29,7 @@ export class UserService {
         });
     }
 
-  // login request
+    // login request
   	login(username: string, password: string): Observable<any> {
 
 		const httpParams = new HttpParams()

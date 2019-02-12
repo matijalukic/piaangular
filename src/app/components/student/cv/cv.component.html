@@ -1,0 +1,17 @@
+
+<div class="row">
+
+    <div class="col-md-12">
+        <h2 class="mb-2">Your Curriculum Vitae</h2>
+
+        <button *ngIf="curriculumVitae != null" (click)="removeCV()" class="btn btn-danger mb-3">Remove CV</button>
+
+        <div class="alert alert-warning" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+        <app-curriculum-vitae *ngIf="curriculumVitae" [curriculumVitae]="curriculumVitae"></app-curriculum-vitae>
+
+        <app-leave-cv [postedCV]="curriculumVitae" (onPostCV)="acceptCV($event)"></app-leave-cv>
+    </div>
+
+
+</div>

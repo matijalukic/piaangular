@@ -38,9 +38,11 @@ export class ProfileOptionsComponent implements OnInit {
                     .subscribe(
                         (succ) => {
                             this.successMessage = succ.successMessage as string;
+                            this.errorMessage = null;
                         },
                         (err) => {
                             this.errorMessage = err.error.errorMessage;
+                            this.successMessage = null;
                         }
                     )
             }

@@ -24,8 +24,9 @@
 
 
 <div class="steps mt-3">
-    <app-one *ngIf="showingNo==0" [locations]="locations" [newFair]="newFair" (submited)="nextStep($event)" (imported)="importedFairs($event)"  (locationsSent)="acceptLocations($event)"></app-one>
-    <app-two *ngIf="showingNo==1" [editFair]="newFair" (submited)="nextStep(newFair)" (fileAdded)="saveFiles($event)"></app-two>
-    <app-three *ngIf="showingNo==2" (imported)="importPackages($event)" (done)="nextStep(newFair)"></app-three>
+    <app-one *ngIf="showingNo==0" [locations]="locations" [newFair]="newFair"
+             (submited)="nextStep($event)" (imported)="importedFairs($event)"  (locationsSent)="acceptLocations($event)"></app-one>
+    <app-two *ngIf="showingNo==1" [editFair]="newFair" (submited)="nextStep($event)" (fileAdded)="saveFiles($event)"></app-two>
+    <app-three *ngIf="showingNo==2" (imported)="importPackages($event)" (done)="nextStep($event)"></app-three>
     <app-four *ngIf="showingNo==3" [newFair]="newFair" [locations]="locations" (submited)="sendAll($event)"></app-four>
 </div>

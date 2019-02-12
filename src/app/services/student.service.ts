@@ -8,9 +8,9 @@ import {Observable} from 'rxjs';
 })
 export class StudentService {
 
-  constructor(
+    constructor(
       private httpClient: HttpClient
-  ) { }
+    ) { }
 
     findCompanies(name: string, city: string, minEmployees: number, maxEmployees: number, agency :string) : Observable<any>{
         const searchParams = new HttpParams()
@@ -43,8 +43,9 @@ export class StudentService {
 
 
     applyForJob(studentId: number, jobId: number, cover_letter: string, pdf: File) : Observable<any>{
-        const httpParams = new HttpParams().set('job_id', String(jobId)).set('cover_letter', cover_letter).set('student_id', String(studentId));
-
+        let httpParams = new HttpParams().set('job_id', String(jobId)).set('student_id', String(studentId));
+        if(cover_letter != null)
+        httpParams = httpParams.set('cover_letter', cover_letter)
 
         return this.httpClient.post(`${UserService.url}student/job/apply`, pdf,
             {
@@ -88,6 +89,16 @@ export class StudentService {
               'Authorization' : 'Bearer ' + localStorage.getItem('idToken')
           }
       })
+    }
+
+    leaveCV(cv: string) : Observable<any>{
+        return this.httpClient.post(`${UserService.url}student/leavecv`,{
+            cv: cv
+        }, {
+            headers : {
+                'Authorization' : 'Bearer ' + localStorage.getItem('idToken')
+            }
+        })
     }
 
 }

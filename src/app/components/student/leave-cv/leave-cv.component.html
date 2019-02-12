@@ -1,0 +1,265 @@
+
+<table class="table table-bordered" *ngIf="postedCV == null">
+
+    <tr>
+        <th>First Name and Surname:</th>
+        <td>
+            Name:<br>
+            <input type="text" class="form-control" [(ngModel)]="curriculumVitae.firstName"/><br>
+            Surname:
+            <input type="text" class="form-control" [(ngModel)]="curriculumVitae.surname"/><br>
+        </td>
+    </tr>
+    <tr>
+        <th>Address:</th>
+        <td>
+            Address:<br>
+            <input type="text" class="form-control" [(ngModel)]="curriculumVitae.address"/><br>
+            Postal Code:<br>
+            <input type="text" class="form-control" [(ngModel)]="curriculumVitae.postalCode"/><br>
+            City:<br>
+            <input type="text" class="form-control" [(ngModel)]="curriculumVitae.city"/><br>
+            Country:<br>
+            <input type="text" class="form-control" [(ngModel)]="curriculumVitae.country"/><br>
+        </td>
+    </tr>
+    <tr>
+        <th>Telephones:</th>
+        <td>
+            <form class="form-inline">
+                <input class="form-control" type="text" placeholder="Type" [formControl]="newTelephoneType">
+                <input class="form-control" type="text" placeholder="Number" [formControl]="newTelephoneNumber">
+                <button (click)="addTelephone()" class="btn btn-primary">Add Telephone</button>
+            </form>
+            <ul *ngIf="curriculumVitae.telephones">
+                <li *ngFor="let tel of curriculumVitae.telephones">
+                    {{ tel.type }} - {{ tel.number }}
+                </li>
+            </ul>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Email:</th>
+        <td><input type="text" class="form-control" placeholder="Email" [(ngModel)]="curriculumVitae.email"/></td>
+    </tr>
+
+    <tr>
+        <th>Websites:</th>
+        <td>
+            <form class="form-inline">
+                <input class="form-control" type="text" placeholder="Website" [formControl]="websiteControl">
+                <button (click)="addWebsite()" class="btn btn-primary">Add Website</button>
+            </form>
+            <ul>
+                <li *ngFor="let website of curriculumVitae.websites">{{ website }}</li>
+            </ul>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Messaging:</th>
+        <td>
+            <form class="form-inline">
+                <input class="form-control" type="text" placeholder="Provider" [formControl]="providerControl">
+                <input class="form-control" type="text" placeholder="Username" [formControl]="usernameControl">
+                <button (click)="addMessiging()" class="btn btn-primary">Add Messiging Provider</button>
+            </form>
+            <ul>
+
+                <li *ngFor="let message of curriculumVitae.messiging">
+                    {{ message.provider }} - {{ message.username }}
+                </li>
+            </ul>
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="2" class="bg-light">
+            <h4>Type of Application</h4>
+        </th>
+    </tr>
+    <tr>
+        <th>Type</th>
+        <td>
+            <select [(ngModel)]="curriculumVitae.type" class="form-control">
+                <option>Job Applied For</option>
+                <option>Position</option>
+                <option>Prefered Job</option>
+                <option>Studies Applied For</option>
+            </select>
+            
+        </td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>
+            <textarea rows="5" class="form-control" [(ngModel)]="curriculumVitae.description"></textarea>
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="2" class="bg-light">
+            <h4>Work experience</h4>
+        </th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <form [formGroup]="workGroup">
+                <table class="table table-borderless">
+                    <tr>
+                        <th>From - To:</th>
+                        <td>
+                            From:<br>
+                            <input type="date" class="form-control" formControlName="from"><br>
+                            To:<br>
+                            <input type="date" class="form-control" formControlName="to"><br>
+                            <label><input type="checkbox" formControlName="ongoing"> Ongoing</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Position</th>
+                        <td><input type="text" class="form-control" formControlName="position"></td>
+                    </tr>
+                    <tr>
+                        <th>Employer</th>
+                        <td><input type="text" class="form-control" formControlName="employer"></td>
+                    </tr>
+                    <tr>
+                        <th>City:</th>
+                        <td><input type="text" class="form-control" formControlName="city"></td>
+                    </tr>
+                    <tr>
+                        <th>Country:</th>
+                        <td><input type="text" class="form-control" formControlName="country"></td>
+                    </tr>
+                    <tr>
+                        <th>Main Activities</th>
+                        <td><textarea class="form-control" rows="5" formControlName="mainActivities"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <button class="btn btn-primary" (click)="addWork()">Add Work Experience</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div *ngIf="curriculumVitae.workExperinence.length == 0" class="alert alert-warning">
+                There is no work experience set!
+            </div>
+            <table *ngFor="let work of curriculumVitae.workExperinence" class="table table-borderless">
+                <tr>
+                    <th>From - To:</th>
+                    <td>
+                        {{ work.from | date : 'medium' }} - {{ work.to | date : 'medium' }}
+                        <span *ngIf="work.ongoing"  class="badge badge-success">Ongoing</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Position</th>
+                    <td>{{ work.position }}</td>
+                </tr>
+                <tr>
+                    <th>Employer</th>
+                    <td>{{ work.employer }}, {{ work.city }} {{ work.country }}</td>
+                </tr>
+                <tr>
+                    <th>Main Activities</th>
+                    <td><textarea class="form-control" readonly rows="5">{{ work.mainActivities }}</textarea></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+
+    <tr>
+        <th colspan="2" class="bg-light">
+            <h4>Education And training</h4>
+        </th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <form [formGroup]="educationGroup">
+                <table class="table table-borderless">
+                    <tr>
+                        <th>From - To:</th>
+                        <td>
+                            From:<br>
+                            <input type="date" class="form-control" formControlName="from"><br>
+                            To:<br>
+                            <input type="date" class="form-control" formControlName="to"><br>
+                            <label><input type="checkbox" formControlName="ongoing"> Ongoing</label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Organisation</th>
+                        <td><input type="text" class="form-control" formControlName="organisation"></td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td><input type="text" class="form-control" formControlName="title"></td>
+                    </tr>
+                    <tr>
+                        <th>City:</th>
+                        <td><input type="text" class="form-control" formControlName="city"></td>
+                    </tr>
+                    <tr>
+                        <th>Country:</th>
+                        <td><input type="text" class="form-control" formControlName="country"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" class="text-center">
+                            <button class="btn btn-primary" (click)="addEducation()">Add Education</button>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+            <div *ngIf="curriculumVitae.educations.length == 0" class="alert alert-warning">
+                There is no educations set!
+            </div>
+            <table *ngFor="let education of curriculumVitae.educations" class="table table-borderless">
+                <tr>
+                    <th>From - To:</th>
+                    <td>
+                        {{ education.from | date : 'medium' }} - {{ education.to | date : 'medium' }}
+                        <span *ngIf="education.ongoing"  class="badge badge-success">Ongoing</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Title:</th>
+                    <td>{{ education.title }}</td>
+                </tr>
+                <tr>
+                    <th>Organisation</th>
+                    <td>{{ education.organisation }}, {{ education.city }} {{ education.country }}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+
+    <tr>
+        <th colspan="2" class="bg-light">
+            <h4>Personal Skills</h4>
+        </th>
+    </tr>
+    <tr>
+        <th>Mother Tongue</th>
+        <td><input type="text" class="form-control" placeholder="Mother tongue" [(ngModel)]="curriculumVitae.motherTongue"/></td>
+    </tr>
+    <tr>
+        <th>Foreign Languages</th>
+        <td><input type="text" class="form-control" placeholder="Foreign Language" [(ngModel)]="curriculumVitae.foreignLanguage"/></td>
+    </tr>
+    <tr>
+        <th>Related Skills</th>
+        <td><textarea rows="5" class="form-control" placeholder="Related Skills" [(ngModel)]="curriculumVitae.relatedSkills"></textarea></td>
+    </tr>
+    <tr>
+        <td colspan="2" class="text-center">
+            <button (click)="leaveCV()" class="btn btn-primary">Submit</button>
+        </td>
+    </tr>
+</table>
+
+

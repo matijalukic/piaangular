@@ -64,7 +64,6 @@ export class TwoComponent implements OnInit,StepComponent {
         if(this.editFairForm.invalid){
           return;
         }
-
         this.submited.emit(this.editFair);
     }
 

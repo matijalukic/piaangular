@@ -39,6 +39,9 @@ import { SingleFairComponent } from './components/single-fair/single-fair.compon
 import { FairShowComponent } from './components/fair-show/fair-show.component';
 import { NewLocationComponent } from './components/new-location/new-location.component';
 import { CompaniesComponent} from './components/companies/companies.component';
+import { CurriculumVitaeComponent } from './components/curriculum-vitae/curriculum-vitae.component';
+import { CVComponent } from './components/student/cv/cv.component';
+import { LeaveCVComponent } from './components/student/leave-cv/leave-cv.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +80,9 @@ import { CompaniesComponent} from './components/companies/companies.component';
     FairShowComponent,
     NewLocationComponent,
     CompaniesComponent,
+    CurriculumVitaeComponent,
+    CVComponent,
+    LeaveCVComponent,
   ],
   imports: [
     BrowserModule,

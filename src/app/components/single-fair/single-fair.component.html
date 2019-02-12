@@ -2,6 +2,11 @@
 
     <h2>{{ showingFair?.name }}</h2>
     <h4>{{ showingFair?.place }}</h4>
+
+    <div class="alert alert-warning" *ngIf="errorMessage">
+        {{ errorMessage }}
+    </div>
+
     <div class="text-muted">
         <span class="badge badge-success" *ngIf="stillGoing">In Progress</span>
         <span class="badge badge-danger" *ngIf="!stillGoing">Finished</span> <br>
@@ -11,7 +16,11 @@
     <p class="lead">{{ showingFair?.about }}</p>
     <h4 class="my-2">Companies participating:</h4>
     <hr>
+    <div class="alert alert-warning" *ngIf="!showingFair?.companies || showingFair?.companies.length == 0">
+        There are no companies yet!
+    </div>
     <div class="card-columns" *ngIf="showingFair?.companies">
+
         <ng-container *ngFor="let company of showingFair.companies">
             <app-card-company
                 *ngIf="company.permits.allowed"

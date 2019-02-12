@@ -18,7 +18,11 @@ export class SingleFairComponent implements OnInit {
     serverUrlImages = 'http://localhost:3000/image/';
 
 
-    constructor() {
+    errorMessage: string;
+
+    constructor(
+        private fairsService: FairsService
+    ) {
 
     }
 
@@ -30,7 +34,18 @@ export class SingleFairComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.setStillGoing();
+        this.fairsService.lastFair()
+            .subscribe(
+                (succ) => {
+                    // this.showingFair = succ as Fair;
+                    this.setStillGoing();
+                },
+                (err) => {
+                    this.errorMessage = 'The server is not loading!';
+                    this.setStillGoing();
+                }
+            );
+
     }
 
     // find package name of the company by package_id

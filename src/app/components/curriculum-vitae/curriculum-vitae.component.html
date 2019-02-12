@@ -1,0 +1,142 @@
+
+<table class="table table-striped">
+
+    <tr>
+        <th>First Name and Surname:</th>
+        <td>{{ curriculumVitae.firstName }} {{ curriculumVitae.surname }}</td>
+    </tr>
+    <tr>
+        <th>Address:</th>
+        <td>{{ curriculumVitae.address }}<br>{{ curriculumVitae.postalCode }} {{ curriculumVitae.city }} {{ curriculumVitae.country }}</td>
+    </tr>
+    <tr>
+        <th>Telephones:</th>
+        <td>
+            <ul *ngIf="curriculumVitae.telephones">
+                <li *ngFor="let tel of curriculumVitae.telephones">
+                    {{ tel.type }} - {{ tel.number }}
+                </li>
+            </ul>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Email:</th>
+        <td>{{ curriculumVitae.email }}</td>
+    </tr>
+
+    <tr>
+        <th>Websites:</th>
+        <td>
+            <ul>
+                <li *ngFor="let website of curriculumVitae.websites">{{ website }}</li>
+            </ul>
+        </td>
+    </tr>
+
+    <tr>
+        <th>Messaging:</th>
+        <td>
+            <ul>
+                <li *ngFor="let message of curriculumVitae.messiging">
+                    {{ message.provider }} - {{ message.username }}
+                </li>
+            </ul>
+        </td>
+    </tr>
+
+    <tr>
+        <th colspan="2">
+            <h4>Type of Application</h4>
+        </th>
+    </tr>
+    <tr>
+        <th>Type</th>
+        <td>{{ curriculumVitae.type }}</td>
+    </tr>
+    <tr>
+        <th>Description</th>
+        <td>{{ curriculumVitae.description }}</td>
+    </tr>
+
+    <tr>
+        <th colspan="2">
+            <h4>Work experience</h4>
+        </th>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <table *ngFor="let work of curriculumVitae.workExperinence" class="table table-borderless">
+                <tr>
+                    <th>From - To:</th>
+                    <td>
+                        {{ work.from | date : 'medium' }} - {{ work.to | date : 'medium' }}
+                        <span *ngIf="work.ongoing"  class="badge badge-success">Ongoing</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Position</th>
+                    <td>{{ work.position }}</td>
+                </tr>
+                <tr>
+                    <th>Employer</th>
+                    <td>{{ work.employer }}, {{ work.city }} {{ work.country }}</td>
+                </tr>
+                <tr>
+                    <th>Main Activities</th>
+                    <td><textarea class="form-control"  readonly="readonly" rows="5">{{ work.mainActivities }}</textarea></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+
+    <tr>
+        <th colspan="2">
+            <h4>Education And training</h4>
+        </th>
+    </tr>
+    <tr>
+        <td colspan="2">
+
+            <table *ngFor="let education of curriculumVitae.educations" class="table table-borderless">
+                <tr>
+                    <th>From - To:</th>
+                    <td>
+                        {{ education.from | date : 'medium' }} - {{ education.to | date : 'medium' }}
+                        <span *ngIf="education.ongoing"  class="badge badge-success">Ongoing</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Title:</th>
+                    <td>{{ education.title }}</td>
+                </tr>
+                <tr>
+                    <th>Organisation</th>
+                    <td>{{ education.organisation }}, {{ education.city }} {{ education.country }}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+
+    <tr>
+        <th colspan="2">
+            <h4>Personal Skills</h4>
+        </th>
+    </tr>
+    <tr>
+        <th>Mother Tongue</th>
+        <td>{{ curriculumVitae.motherTongue }}</td>
+    </tr>
+    <tr>
+        <th>Foreign Languages</th>
+        <td>{{ curriculumVitae.foreignLanguage }}</td>
+    </tr>
+    <tr>
+        <th>Related Skills</th>
+        <td>{{ curriculumVitae.relatedSkills }}</td>
+    </tr>
+</table>
+
+

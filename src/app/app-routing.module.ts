@@ -23,6 +23,7 @@ import {RegisterComponent} from './components/register/register.component';
 import {ProfileOptionsComponent} from './components/profile/profile-options/profile-options.component';
 import {FairShowComponent} from './components/fair-show/fair-show.component';
 import {CompaniesComponent} from './components/companies/companies.component';
+import {CVComponent} from './components/student/cv/cv.component';
 
 
 const routes: Routes = [
@@ -43,6 +44,7 @@ const routes: Routes = [
     { path: 'student/find/company', component: FindCompanyComponent, canActivate: [LoggedInGuard, StudentGuard]},
     { path: 'student/find/job', component: FindJobComponent, canActivate: [LoggedInGuard, StudentGuard]},
     { path: 'student/myapplications', component: MyApplicationsComponent, canActivate: [LoggedInGuard, StudentGuard]},
+    { path: 'student/curriculumvitae', component: CVComponent, canActivate: [LoggedInGuard, StudentGuard]},
 
     // Company routes
     { path: 'panel/participations', component: ParticipationsComponent, canActivate: [LoggedInGuard, CompanyGuard]},
